@@ -1,0 +1,35 @@
+[gd_scene load_steps=8 format=3 uid="uid://c4skaw306j3u5"]
+
+[ext_resource type="Texture2D" uid="uid://5yilpmr5knkg" path="res://models/textures/moon_diffuse.png" id="1_dhvcg"]
+[ext_resource type="PackedScene" uid="uid://cwpo78f50wouh" path="res://player.tscn" id="2_m1uo0"]
+[ext_resource type="Resource" uid="uid://w120kkbvtwtk" path="res://resources/inventory/player_inventory.tres" id="3_7ytg1"]
+[ext_resource type="PackedScene" uid="uid://cd4bjhn0qultm" path="res://small_health.tscn" id="4_eh8b4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3d6nm"]
+albedo_texture = ExtResource("1_dhvcg")
+uv1_scale = Vector3(0.8, 0.8, 0.8)
+uv1_offset = Vector3(0.17, -0.105, 0)
+texture_filter = 0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_tusn2"]
+material = SubResource("StandardMaterial3D_3d6nm")
+cap_bottom = false
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ikr7s"]
+
+[node name="Main" type="Node3D"]
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, -100, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("CylinderMesh_tusn2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("CylinderShape3D_ikr7s")
+
+[node name="Player" parent="." instance=ExtResource("2_m1uo0")]
+INVENTORY = ExtResource("3_7ytg1")
+
+[node name="SmallHealth" parent="." instance=ExtResource("4_eh8b4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.21274, 0, 8.76288)

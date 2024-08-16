@@ -1,0 +1,116 @@
+[gd_scene load_steps=9 format=3 uid="uid://cwpo78f50wouh"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_p4h0a"]
+[ext_resource type="PackedScene" uid="uid://blbuqihsma4oy" path="res://inventory_ui.tscn" id="2_1alvv"]
+[ext_resource type="Script" path="res://scripts/health.gd" id="2_a36w6"]
+[ext_resource type="PackedScene" uid="uid://bufldfdk3wo0j" path="res://health_bar.tscn" id="3_mbhhb"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_e8ysh"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_dxwfn"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mtmyc"]
+radius = 2.0
+height = 5.0
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_1yxpe"]
+length = 5.0
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_p4h0a")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_e8ysh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_dxwfn")
+
+[node name="GrabArea" type="Area3D" parent="." groups=["Player_GrabArea"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GrabArea"]
+shape = SubResource("CapsuleShape3D_mtmyc")
+
+[node name="CameraPivot" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 1.8, 0)
+
+[node name="Camera" type="Camera3D" parent="CameraPivot"]
+unique_name_in_owner = true
+current = true
+
+[node name="Flashlight" type="SpotLight3D" parent="CameraPivot/Camera"]
+light_energy = 2.0
+spot_range = 20.0
+spot_angle = 35.0
+
+[node name="AttackRayCast" type="RayCast3D" parent="CameraPivot/Camera"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+target_position = Vector3(0, -50, 0)
+collide_with_areas = true
+debug_shape_custom_color = Color(0.85098, 0.270588, 0.239216, 1)
+debug_shape_thickness = 1
+
+[node name="InteractArea" type="Area3D" parent="CameraPivot/Camera" groups=["Player_InteractArea"]]
+
+[node name="InteractRayCast" type="RayCast3D" parent="CameraPivot/Camera/InteractArea"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+target_position = Vector3(0, -5, 0)
+collide_with_areas = true
+debug_shape_custom_color = Color(0.27451, 0.576471, 0.352941, 1)
+debug_shape_thickness = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CameraPivot/Camera/InteractArea"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
+shape = SubResource("SeparationRayShape3D_1yxpe")
+
+[node name="MenuGUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="ColorRect" parent="MenuGUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.196078)
+
+[node name="InventoryUI" parent="MenuGUI" instance=ExtResource("2_1alvv")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -319.0
+offset_top = -161.0
+offset_right = -191.0
+offset_bottom = -97.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerStats" type="Control" parent="MenuGUI"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 356.0
+grow_vertical = 2
+
+[node name="Health" type="Control" parent="MenuGUI/PlayerStats"]
+anchors_preset = 0
+offset_right = 300.0
+offset_bottom = 50.0
+script = ExtResource("2_a36w6")
+max_value = 100.0
+start_value = 80.0
+
+[node name="HealthBar" parent="MenuGUI/PlayerStats/Health" instance=ExtResource("3_mbhhb")]
+layout_mode = 0

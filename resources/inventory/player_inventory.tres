@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="Inventory" load_steps=12 format=3 uid="uid://w120kkbvtwtk"]
+
+[ext_resource type="Resource" uid="uid://cjwgb5btsa36p" path="res://resources/inventory/items/health_small.tres" id="2_hvaii"]
+[ext_resource type="Script" path="res://resources/inventory/inventory.gd" id="3_hu6ty"]
+[ext_resource type="Script" path="res://resources/inventory/inventory_slot.gd" id="3_red62"]
+
+[sub_resource type="Resource" id="Resource_t0scj"]
+script = ExtResource("3_red62")
+amount = 0
+
+[sub_resource type="Resource" id="Resource_m8fdi"]
+script = ExtResource("3_red62")
+amount = 0
+
+[sub_resource type="Resource" id="Resource_norns"]
+script = ExtResource("3_red62")
+item = ExtResource("2_hvaii")
+amount = 5
+
+[sub_resource type="Resource" id="Resource_tt84f"]
+script = ExtResource("3_red62")
+item = ExtResource("2_hvaii")
+amount = 2
+
+[sub_resource type="Resource" id="Resource_c7nun"]
+script = ExtResource("3_red62")
+amount = 0
+
+[sub_resource type="Resource" id="Resource_k36ha"]
+script = ExtResource("3_red62")
+amount = 0
+
+[sub_resource type="Resource" id="Resource_nqtbx"]
+script = ExtResource("3_red62")
+amount = 0
+
+[sub_resource type="Resource" id="Resource_id8w1"]
+script = ExtResource("3_red62")
+amount = 0
+
+[resource]
+script = ExtResource("3_hu6ty")
+slots = Array[ExtResource("3_red62")]([SubResource("Resource_t0scj"), SubResource("Resource_m8fdi"), SubResource("Resource_norns"), SubResource("Resource_tt84f"), SubResource("Resource_c7nun"), SubResource("Resource_k36ha"), SubResource("Resource_nqtbx"), SubResource("Resource_id8w1")])

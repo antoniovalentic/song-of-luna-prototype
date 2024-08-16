@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="InvItem" load_steps=3 format=3 uid="uid://dmga4rnvgm11i"]
+
+[ext_resource type="Script" path="res://resources/inventory/inventory_item.gd" id="1_mknx7"]
+[ext_resource type="Texture2D" uid="uid://ce3dw5ntihkqv" path="res://sprites/health-big.png" id="2_rpx1o"]
+
+[resource]
+script = ExtResource("1_mknx7")
+name = "Health Big"
+description = "Restores 50% of health"
+item_type = 0
+max_stack = 1
+quantitiy = 1
+is_usable = true
+ui_sprite = ExtResource("2_rpx1o")
