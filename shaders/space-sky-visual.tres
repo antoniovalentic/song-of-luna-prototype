@@ -1,0 +1,60 @@
+[gd_resource type="VisualShader" load_steps=6 format=3 uid="uid://biaa06i3m520n"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_dif26"]
+noise_type = 2
+frequency = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_h03vp"]
+noise = SubResource("FastNoiseLite_dif26")
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_8o7sy"]
+texture = SubResource("NoiseTexture2D_h03vp")
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_4aohb"]
+input_name = "eyedir"
+
+[sub_resource type="VisualShaderNodeCompare" id="VisualShaderNodeCompare_0l7eq"]
+default_input_values = [0, 0.0, 1, 0.9, 2, 1e-05]
+function = 2
+
+[resource]
+code = "shader_type sky;
+uniform sampler2D tex_sky_2 : source_color;
+
+
+
+void sky() {
+// Input:3
+	vec3 n_out3p0 = EYEDIR;
+
+
+// Texture2D:2
+	vec4 n_out2p0 = texture(tex_sky_2, vec2(n_out3p0.xy));
+
+
+// Compare:4
+	float n_in4p1 = 0.90000;
+	bool n_out4p0 = n_out2p0.x > n_in4p1;
+
+
+// Output:0
+	COLOR = vec3(n_out4p0 ? 1.0 : 0.0);
+
+
+}
+"
+graph_offset = Vector2(-54.0033, 40.9704)
+mode = 3
+flags/use_half_res_pass = false
+flags/use_quarter_res_pass = false
+flags/disable_fog = false
+flags/use_debanding = false
+nodes/sky/0/position = Vector2(1080, 180)
+nodes/sky/2/node = SubResource("VisualShaderNodeTexture_8o7sy")
+nodes/sky/2/position = Vector2(420, 160)
+nodes/sky/3/node = SubResource("VisualShaderNodeInput_4aohb")
+nodes/sky/3/position = Vector2(60, 280)
+nodes/sky/4/node = SubResource("VisualShaderNodeCompare_0l7eq")
+nodes/sky/4/position = Vector2(760, 140)
+nodes/sky/connections = PackedInt32Array(3, 0, 2, 0, 2, 0, 4, 0, 4, 0, 0, 0)

@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://cwpo78f50wouh"]
+[gd_scene load_steps=10 format=3 uid="uid://cwpo78f50wouh"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_p4h0a"]
 [ext_resource type="PackedScene" uid="uid://blbuqihsma4oy" path="res://inventory_ui.tscn" id="2_1alvv"]
+[ext_resource type="Resource" uid="uid://w120kkbvtwtk" path="res://resources/inventory/player_inventory.tres" id="2_20gtg"]
 [ext_resource type="Script" path="res://scripts/health.gd" id="2_a36w6"]
 [ext_resource type="PackedScene" uid="uid://bufldfdk3wo0j" path="res://health_bar.tscn" id="3_mbhhb"]
 
@@ -18,6 +19,7 @@ length = 5.0
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_p4h0a")
+INVENTORY = ExtResource("2_20gtg")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -25,6 +27,8 @@ shape = SubResource("CapsuleShape3D_e8ysh")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+layers = 524288
+cast_shadow = 0
 mesh = SubResource("CapsuleMesh_dxwfn")
 
 [node name="GrabArea" type="Area3D" parent="." groups=["Player_GrabArea"]]
@@ -42,7 +46,10 @@ unique_name_in_owner = true
 current = true
 
 [node name="Flashlight" type="SpotLight3D" parent="CameraPivot/Camera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.386791, -0.306319, -3.38144e-08)
 light_energy = 2.0
+light_cull_mask = 4294443007
+shadow_enabled = true
 spot_range = 20.0
 spot_angle = 35.0
 

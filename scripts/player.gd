@@ -3,6 +3,7 @@ class_name Player
 
 @onready var camera: Camera3D = %Camera
 @onready var pivot: Node3D = %CameraPivot
+@onready var viewport: Viewport = get_viewport()
 
 @onready var interact_area: Area3D = %Camera/InteractArea
 @onready var interact_raycast: RayCast3D = %Camera/InteractArea/InteractRayCast
@@ -23,6 +24,10 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 func _ready():
 	# Register Player node in Global script
 	Global.set_player_reference(self)
+
+	# Resolution scaling settings
+	#viewport.scaling_3d_scale = 0.5
+	#viewport.scaling_3d_mode = Viewport.SCALING_3D_MODE_BILINEAR
 	
 	# Hide mouse cursor on start
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
