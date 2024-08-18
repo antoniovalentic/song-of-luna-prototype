@@ -21,10 +21,6 @@ group_uniforms stars;
 uniform vec3 star_base_color: source_color = vec3(0.8, 1.0, 0.3);
 uniform float star_hue_offset: hint_range(0., 1.) = 0.6;
 uniform float star_intensity: hint_range(0., 0.2) = 0.08;
-#ifdef USE_TWINKLE
-uniform float star_twinkle_speed: hint_range(0.0, 2.0) = 0.8;
-uniform float star_twinkle_intensity: hint_range(0.0, 1.0) = 0.2;
-#endif
 
 group_uniforms layers;
 uniform float layer_scale: hint_range(0., 60.) = 20.;
@@ -110,7 +106,11 @@ void sky() {
         float star = smoothstep(star_intensity, 0., layer.x);
 		
 		vec3 star_color = star * hue((COLOR + star_base_color), rand.y * star_hue_offset, 1);
-		
+        
+        /*float culling_limit_min = 0.5;
+        float culling_limit_max = 0.5;
+		star_color = smoothstep(vec3(culling_limit_min), vec3(culling_limit_max), star_color);*/
+        
 		COLOR += star_color;
 	}
 }
