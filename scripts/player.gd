@@ -3,7 +3,6 @@ class_name Player
 
 @onready var camera: Camera3D = %Camera
 @onready var pivot: Node3D = %CameraPivot
-@onready var viewport: Viewport = get_viewport()
 
 @onready var interact_area: Area3D = %Camera/InteractArea
 @onready var interact_raycast: RayCast3D = %Camera/InteractArea/InteractRayCast
@@ -24,10 +23,6 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 func _ready():
 	# Register Player node in Global script
 	Global.set_player_reference(self)
-
-	# Resolution scaling settings
-	#viewport.scaling_3d_scale = 0.5
-	#viewport.scaling_3d_mode = Viewport.SCALING_3D_MODE_BILINEAR
 	
 	# Hide mouse cursor on start
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -39,14 +34,12 @@ func _input(event: InputEvent):
 		if interact_collider is ItemScene:
 			print_debug(interact_collider.item.name)
 			interact_collider.collect_item()
-	
+
+func _unhandled_input(event: InputEvent):
 	if event is InputEventMouseMotion:
 		pivot.rotate_y(-event.relative.x * LOOK_SENSITIVITY)
 		camera.rotate_x(-event.relative.y * LOOK_SENSITIVITY)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-X_ROTATION_LIMIT), deg_to_rad(X_ROTATION_LIMIT))
-
-func _unhandled_input(event: InputEvent):
-	pass
 
 func _unhandled_key_input(event: InputEvent):
 	# Show mouse cursor on Esc press
