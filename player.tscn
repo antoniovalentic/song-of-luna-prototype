@@ -1,12 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://cwpo78f50wouh"]
+[gd_scene load_steps=14 format=3 uid="uid://cwpo78f50wouh"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_p4h0a"]
-[ext_resource type="PackedScene" uid="uid://blbuqihsma4oy" path="res://inventory_ui.tscn" id="2_1alvv"]
 [ext_resource type="Resource" uid="uid://w120kkbvtwtk" path="res://resources/inventory/player_inventory.tres" id="2_20gtg"]
-[ext_resource type="Script" path="res://scripts/health.gd" id="2_a36w6"]
-[ext_resource type="Script" path="res://scripts/menu_gui.gd" id="3_6lg5b"]
-[ext_resource type="PackedScene" uid="uid://bufldfdk3wo0j" path="res://health_bar.tscn" id="3_mbhhb"]
+[ext_resource type="Shader" path="res://shaders/crt.gdshader" id="3_lam6c"]
 [ext_resource type="Script" path="res://scripts/camera_viewport.gd" id="3_ooycf"]
+[ext_resource type="Shader" path="res://shaders/reduce_color.gdshader" id="4_uvjkv"]
+[ext_resource type="PackedScene" uid="uid://b6wk1k8gw3hht" path="res://menu_gui.tscn" id="6_d8hla"]
+[ext_resource type="PackedScene" uid="uid://c8g2on3cpu6ge" path="res://hud.tscn" id="6_hr3w2"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_e8ysh"]
 
@@ -18,6 +18,14 @@ height = 5.0
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_1yxpe"]
 length = 5.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_han5t"]
+shader = ExtResource("3_lam6c")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5a8sd"]
+shader = ExtResource("4_uvjkv")
+shader_parameter/colors = 10.0
+shader_parameter/dither = 0.25
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_p4h0a")
@@ -75,25 +83,40 @@ debug_shape_thickness = 4
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 shape = SubResource("SeparationRayShape3D_1yxpe")
 
-[node name="CameraViewport" type="SubViewportContainer" parent="." node_paths=PackedStringArray("view_camera")]
+[node name="PostProcessViewport" type="SubViewportContainer" parent="."]
+material = SubResource("ShaderMaterial_han5t")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="PostProcessViewport"]
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="CameraViewport" type="SubViewportContainer" parent="PostProcessViewport/SubViewport" node_paths=PackedStringArray("view_camera")]
 texture_filter = 1
+material = SubResource("ShaderMaterial_5a8sd")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 stretch = true
-stretch_shrink = 3
+stretch_shrink = 4
 script = ExtResource("3_ooycf")
-view_camera = NodePath("../CameraPivot/Camera")
+view_camera = NodePath("../../../CameraPivot/Camera")
 
-[node name="SubViewport" type="SubViewport" parent="CameraViewport"]
+[node name="SubViewport" type="SubViewport" parent="PostProcessViewport/SubViewport/CameraViewport"]
 handle_input_locally = false
 positional_shadow_atlas_size = 512
-size = Vector2i(640, 360)
+size = Vector2i(480, 270)
 render_target_update_mode = 4
 
-[node name="Camera" type="Camera3D" parent="CameraViewport/SubViewport"]
+[node name="Camera" type="Camera3D" parent="PostProcessViewport/SubViewport/CameraViewport/SubViewport"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 1.8, 0)
 
 [node name="GuiViewportContainer" type="SubViewportContainer" parent="."]
 anchors_preset = 15
@@ -109,53 +132,7 @@ handle_input_locally = false
 size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
-[node name="MenuGUI" type="Control" parent="GuiViewportContainer/SubViewport"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("3_6lg5b")
+[node name="HUD" parent="GuiViewportContainer/SubViewport" instance=ExtResource("6_hr3w2")]
+mouse_filter = 2
 
-[node name="BG" type="ColorRect" parent="GuiViewportContainer/SubViewport/MenuGUI"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.196078)
-
-[node name="InventoryUI" parent="GuiViewportContainer/SubViewport/MenuGUI" instance=ExtResource("2_1alvv")]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -320.0
-offset_top = -158.0
-offset_right = -192.0
-offset_bottom = -94.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="PlayerStats" type="Control" parent="GuiViewportContainer/SubViewport/MenuGUI"]
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_right = 356.0
-grow_vertical = 2
-
-[node name="Health" type="Control" parent="GuiViewportContainer/SubViewport/MenuGUI/PlayerStats"]
-anchors_preset = 0
-offset_right = 300.0
-offset_bottom = 50.0
-script = ExtResource("2_a36w6")
-max_value = 100.0
-start_value = 80.0
-
-[node name="HealthBar" parent="GuiViewportContainer/SubViewport/MenuGUI/PlayerStats/Health" instance=ExtResource("3_mbhhb")]
-texture_filter = 1
-layout_mode = 0
+[node name="MenuGUI" parent="GuiViewportContainer/SubViewport" instance=ExtResource("6_d8hla")]

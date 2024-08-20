@@ -5,9 +5,6 @@ extends Node
 # Variables
 var player_instance: Player = null
 
-# Custom signals
-signal inventory_updated(new_inventory: Array[Dictionary], new_item: Dictionary)
-
 func _ready():
 	# Resolution scaling settings
 	#viewport.scaling_3d_scale = 0.25

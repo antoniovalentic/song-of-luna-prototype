@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8g2on3cpu6ge"]
+
+[ext_resource type="Script" path="res://scripts/hud.gd" id="1_xgjwr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yd04o"]
+bg_color = Color(0, 0, 0, 0.137255)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_thbfb"]
+bg_color = Color(0.707967, 0.707967, 0.707966, 1)
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xgjwr")
+
+[node name="StaminaBar" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -68.0
+offset_right = 300.0
+offset_bottom = -53.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_yd04o")
+theme_override_styles/fill = SubResource("StyleBoxFlat_thbfb")
+value = 50.0
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="StaminaBar"]
+process_callback = 0
+wait_time = 2.0
+
+[connection signal="timeout" from="StaminaBar/Timer" to="." method="_on_stamina_timer_timeout"]

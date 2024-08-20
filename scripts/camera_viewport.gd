@@ -14,6 +14,6 @@ func _ready():
     camera.position = view_camera.position
     camera.global_transform = view_camera.global_transform
 
-func _process(_delta: float) -> void:
+func _process(_delta: float):
     if view_camera and camera:
         camera.global_transform = view_camera.global_transform
