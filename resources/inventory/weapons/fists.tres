@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="InvItem" load_steps=3 format=3 uid="uid://utmtoiyknjet"]
+
+[ext_resource type="Script" path="res://resources/inventory/inventory_item.gd" id="1_1sdf0"]
+[ext_resource type="Texture2D" uid="uid://omq2eg86cvp4" path="res://sprites/fist-sprite-white.png" id="2_6oqgf"]
+
+[resource]
+script = ExtResource("1_1sdf0")
+name = "Fists"
+description = "Default equiped weapon"
+item_type = 2
+max_stack = 1
+is_usable = true
+ui_sprite = ExtResource("2_6oqgf")
+scene_path = ""

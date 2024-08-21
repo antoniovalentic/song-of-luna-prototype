@@ -80,8 +80,7 @@ func _physics_process(delta: float):
 	# Calculate speed
 	if Input.is_action_pressed("sprint") and is_on_floor() and not is_recovering_stamina:
 		current_stamina = clamp(current_stamina - STAMINA_DECAY, 0.0, MAX_STAMINA)
-		current_speed = SPRINT_SPEED
-			
+		current_speed = SPRINT_SPEED		
 	else:
 		current_stamina = clamp(current_stamina + STAMINA_RECOVERY, 0.0, MAX_STAMINA)
 		current_speed = MOVE_SPEED

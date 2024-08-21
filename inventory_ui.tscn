@@ -51,3 +51,11 @@ layout_mode = 2
 
 [node name="InventorySlot8" parent="GridContainer" instance=ExtResource("3_didwb")]
 layout_mode = 2
+
+[node name="EquipmentSlot" parent="." instance=ExtResource("3_didwb")]
+layout_mode = 0
+offset_left = 136.2
+offset_top = 22.8
+offset_right = 156.2
+offset_bottom = 42.8
+type = 1
