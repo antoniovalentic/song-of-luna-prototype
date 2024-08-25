@@ -1,24 +1,27 @@
 extends Resource
 class_name Inventory
 
-signal slots_updated
+#signal slots_updated
 
 @export var slots: Array[InvSlot]
 @export var equiped_item: InvSlot
-
-func _ready():
-    equiped_item.amount = 0
+@export var default_equip_item: InvSlot
 
 func equip(item: InvItem):
     if item.item_type == InvItem.ItemType.WEAPON:
         # First insert equiped item back in inventory
-        insert(equiped_item.item, 1)
+        #insert(equiped_item.item, 1)
 
         # Remove equiped item from inventory
-        remove(item, 1)
+        #remove(item, 1)
 
         # Set new equiped item
         equiped_item.item = item
+        SignalBus.slots_updated.emit()
+
+func unequip(item: InvItem):
+    if item.item_type == InvItem.ItemType.WEAPON:
+        equip(default_equip_item.item)
 
 func insert(item: InvItem, amount: int):
     # Array of slots that contain the item
@@ -32,7 +35,7 @@ func insert(item: InvItem, amount: int):
             empty_slots[0].item = item
             empty_slots[0].amount = amount
     
-    slots_updated.emit()
+    SignalBus.slots_updated.emit()
 
 func remove(item: InvItem, amount: int):
     # Array of slots that contain the item
@@ -43,4 +46,4 @@ func remove(item: InvItem, amount: int):
             item_slots[0].item = null
             item_slots[0].amount = 0
     
-    slots_updated.emit()
+    SignalBus.slots_updated.emit()

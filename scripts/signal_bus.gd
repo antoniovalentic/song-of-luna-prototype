@@ -1,11 +1,16 @@
 extends Node
 
+# GUI signals
+signal gui_hidden()
+signal gui_shown()
+
 # Player signals
 signal player_speed_updated(current_speed: float, current_stamina: float, max_stamina: float)
 
-signal inventory_updated(new_inventory: Array[Dictionary], new_item: Dictionary)
-
+# Inventory signals
 signal equiped_item(slot: InvSlot)
+signal unequiped_item(slot: InvSlot)
+signal slots_updated
 
 func _ready():
 	pass

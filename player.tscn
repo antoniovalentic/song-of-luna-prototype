@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://cwpo78f50wouh"]
+[gd_scene load_steps=16 format=3 uid="uid://cwpo78f50wouh"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_p4h0a"]
 [ext_resource type="Resource" uid="uid://w120kkbvtwtk" path="res://resources/inventory/player_inventory.tres" id="2_20gtg"]
 [ext_resource type="Shader" path="res://shaders/crt.gdshader" id="3_lam6c"]
 [ext_resource type="Script" path="res://scripts/camera_viewport.gd" id="3_ooycf"]
 [ext_resource type="Shader" path="res://shaders/reduce_color.gdshader" id="4_uvjkv"]
+[ext_resource type="Script" path="res://scripts/gui_viewport_container.gd" id="6_bmjq8"]
 [ext_resource type="PackedScene" uid="uid://b6wk1k8gw3hht" path="res://menu_gui.tscn" id="6_d8hla"]
 [ext_resource type="PackedScene" uid="uid://c8g2on3cpu6ge" path="res://hud.tscn" id="6_hr3w2"]
 
@@ -21,11 +22,20 @@ length = 5.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_han5t"]
 shader = ExtResource("3_lam6c")
+shader_parameter/screen_tear = 1.0
+shader_parameter/chromatic_aberration = 1.0
+shader_parameter/scan_lines = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5a8sd"]
 shader = ExtResource("4_uvjkv")
 shader_parameter/colors = 10.0
 shader_parameter/dither = 0.25
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0qw0g"]
+shader = ExtResource("3_lam6c")
+shader_parameter/screen_tear = 0.0
+shader_parameter/chromatic_aberration = 0.45
+shader_parameter/scan_lines = 0.35
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_p4h0a")
@@ -119,12 +129,13 @@ render_target_update_mode = 4
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 1.8, 0)
 
 [node name="GuiViewportContainer" type="SubViewportContainer" parent="."]
+material = SubResource("ShaderMaterial_0qw0g")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-stretch = true
+script = ExtResource("6_bmjq8")
 
 [node name="SubViewport" type="SubViewport" parent="GuiViewportContainer"]
 transparent_bg = true

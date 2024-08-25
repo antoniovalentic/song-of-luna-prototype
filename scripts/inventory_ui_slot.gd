@@ -9,10 +9,17 @@ enum SlotType {INVENTORY, EQUIPMENT}
 
 @onready var item_sprite: Sprite2D = %ItemSprite
 @onready var amount_label: Label = %AmountLabel
+@onready var title_label: Label = %TitleLabel
 
 var slot_data: InvSlot
 
 func _gui_input(event):
+	# ignore empty slots
+	if self.slot_data.item == null:
+		return
+	
+	if event is InputEventMouseButton:
+		print_debug("TEST")
 	if event is InputEventMouseButton and self.type == SlotType.INVENTORY and event.double_click:
 		# If item, equip; if consumable, consume
 		if self.slot_data.item.item_type == InvItem.ItemType.WEAPON:
@@ -20,6 +27,11 @@ func _gui_input(event):
 		elif self.slot_data.item.item_type == InvItem.ItemType.CONSUMABLE:
 			# TODO - consume item
 			pass
+	if event is InputEventMouseButton and self.type == SlotType.EQUIPMENT and event.double_click:
+		# Remove equiped item
+		if self.slot_data.item.item_type == InvItem.ItemType.WEAPON:
+			SignalBus.unequiped_item.emit(self.slot_data)
+	
 
 func update(slot: InvSlot):
 	self.slot_data = slot
@@ -40,14 +52,4 @@ func update_data():
 		
 		item_sprite.texture = slot_data.item.ui_sprite
 		amount_label.text = str(slot_data.amount)
-	
-	# TODO - REMOVE
-	# resize item sprite if needed
-	if item_sprite.texture != null:
-		var img: Image = item_sprite.texture.get_image()
-		print_debug(img.get_width())
-		if img.get_width() > 16 or img.get_height() > 16:
-			print_debug(self.name)
-			img.resize(16, 16, Image.INTERPOLATE_TRILINEAR)
-			var newTexture = ImageTexture.create_from_image(img)
-			item_sprite.texture = newTexture
+		title_label.text = str(slot_data.item.name).to_upper()
