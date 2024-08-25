@@ -42,7 +42,6 @@ func _input(event: InputEvent):
 	if event.is_action_pressed("interact_action"):
 		var interact_collider: Object = interact_raycast.get_collider()
 		if interact_collider is ItemScene:
-			print_debug(interact_collider.item.name)
 			interact_collider.collect_item()
 
 func _unhandled_input(event: InputEvent):

@@ -18,8 +18,6 @@ func _gui_input(event):
 	if self.slot_data.item == null:
 		return
 	
-	if event is InputEventMouseButton:
-		print_debug("TEST")
 	if event is InputEventMouseButton and self.type == SlotType.INVENTORY and event.double_click:
 		# If item, equip; if consumable, consume
 		if self.slot_data.item.item_type == InvItem.ItemType.WEAPON:

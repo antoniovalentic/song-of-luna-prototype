@@ -8,7 +8,6 @@ func _ready():
 
 func _process(_delta: float):
 	if Input.is_action_just_pressed("ui_inventory"):
-		print_debug(is_open)
 		if is_open:
 			close()
 		else:

@@ -11,9 +11,9 @@ shader_parameter/sky_color = Color(0, 0, 0, 1)
 shader_parameter/star_base_color = Color(1, 1, 1, 1)
 shader_parameter/star_hue_offset = 0.6
 shader_parameter/star_intensity = 0.08
-shader_parameter/layer_scale = 10.0
-shader_parameter/layer_scale_step = 10.0
-shader_parameter/layers_count = 3
+shader_parameter/layer_scale = 15.0
+shader_parameter/layer_scale_step = 5.0
+shader_parameter/layers_count = 1
 
 [sub_resource type="Sky" id="Sky_jf7ng"]
 sky_material = SubResource("ShaderMaterial_go17a")
