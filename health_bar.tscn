@@ -3,10 +3,10 @@
 [ext_resource type="Script" path="res://scripts/health_ui_bar.gd" id="1_h8aky"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p6kjv"]
-bg_color = Color(0.0862745, 0.0862745, 0.0862745, 1)
+bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_namrr"]
-bg_color = Color(1, 0.172549, 0.282353, 1)
+bg_color = Color(0.341176, 0.611765, 0.603922, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_81h0a"]
 font_size = 25

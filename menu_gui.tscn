@@ -1,9 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://b6wk1k8gw3hht"]
+[gd_scene load_steps=6 format=3 uid="uid://b6wk1k8gw3hht"]
 
 [ext_resource type="Script" path="res://scripts/menu_gui.gd" id="1_0gq57"]
 [ext_resource type="PackedScene" uid="uid://blbuqihsma4oy" path="res://inventory_ui.tscn" id="2_fr1ct"]
 [ext_resource type="Script" path="res://scripts/health.gd" id="3_s7m6u"]
 [ext_resource type="PackedScene" uid="uid://bufldfdk3wo0j" path="res://health_bar.tscn" id="4_80mv2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_kj557"]
+font_size = 20
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 0.501961)
 
 [node name="MenuGUI" type="Control"]
 layout_mode = 3
@@ -43,17 +48,35 @@ scale = Vector2(4, 4)
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
-offset_right = 356.0
+offset_left = 1077.0
+offset_top = 551.0
+offset_right = 1333.0
+offset_bottom = -217.0
 grow_vertical = 2
 
 [node name="Health" type="Control" parent="PlayerStats"]
 anchors_preset = 0
-offset_right = 300.0
-offset_bottom = 50.0
+offset_right = 256.0
+offset_bottom = 83.0
 script = ExtResource("3_s7m6u")
 max_value = 100.0
 start_value = 80.0
 
+[node name="Label" type="Label" parent="PlayerStats/Health"]
+texture_filter = 1
+layout_mode = 1
+offset_right = 65.0
+offset_bottom = 28.0
+text = "Health"
+label_settings = SubResource("LabelSettings_kj557")
+
 [node name="HealthBar" parent="PlayerStats/Health" instance=ExtResource("4_80mv2")]
 texture_filter = 1
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -50.0
+offset_right = 256.0
+offset_bottom = 0.0
+grow_vertical = 0

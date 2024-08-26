@@ -38,6 +38,7 @@ shader_parameter/scan_lines = 0.35
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_p4h0a")
+STAMINA_DECAY = 1.0
 INVENTORY = ExtResource("2_20gtg")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
