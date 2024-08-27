@@ -34,7 +34,7 @@ void fragment()
     col.r += 0.08*texture(TEXTURE,0.75 * chromatic_aberration * vec2(x+0.025, -0.027)+vec2(uv.x+0.001,uv.y+0.001)).x;
     col.g += 0.05*texture(TEXTURE,0.75 * chromatic_aberration * vec2(x+-0.022, -0.02)+vec2(uv.x+0.000,uv.y-0.002)).y;
     col.b += 0.08*texture(TEXTURE,0.75 * chromatic_aberration * vec2(x+-0.02, -0.018)+vec2(uv.x-0.002,uv.y+0.000)).z;
-    
+
     float transp = oricol.a;
     transp = texture(TEXTURE,vec2(x+uv.x+(0.001 * chromatic_aberration),uv.y+(0.001 * chromatic_aberration))).a+0.05;
     transp += 0.08*texture(TEXTURE,0.75 * chromatic_aberration * vec2(x+0.025, -0.027)+vec2(uv.x+0.001,uv.y+0.001)).a;

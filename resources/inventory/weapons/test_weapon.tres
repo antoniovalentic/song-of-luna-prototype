@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="InvItem" load_steps=3 format=3 uid="uid://c1rf3xiepl173"]
 
 [ext_resource type="Script" path="res://resources/inventory/inventory_item.gd" id="1_ynunb"]
-[ext_resource type="Texture2D" uid="uid://b5mmxrvxtbed4" path="res://shaders/color_palettes/bayer16tile2.png" id="2_pivjo"]
+[ext_resource type="Texture2D" uid="uid://tbwdggogfbl7" path="res://sprites/PGT-pistol-sprite.png" id="2_kvtp7"]
 
 [resource]
 script = ExtResource("1_ynunb")
@@ -10,5 +10,5 @@ description = "test weapon"
 item_type = 2
 max_stack = 1
 is_usable = true
-ui_sprite = ExtResource("2_pivjo")
+ui_sprite = ExtResource("2_kvtp7")
 scene_path = ""
