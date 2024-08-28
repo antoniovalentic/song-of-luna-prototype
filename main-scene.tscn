@@ -79,8 +79,9 @@ transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, -56.2947, 0)
 [node name="Pyramid" parent="." instance=ExtResource("5_o1km6")]
 transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, -400, -7, 0)
 
-[node name="Player" parent="." instance=ExtResource("2_m1uo0")]
+[node name="Player" parent="." node_paths=PackedStringArray("CURRENT_LEVEL_SCENE") instance=ExtResource("2_m1uo0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.19277, 0, 0)
+CURRENT_LEVEL_SCENE = NodePath("..")
 
 [node name="Ground" type="StaticBody3D" parent="."]
 transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, -100, 0)

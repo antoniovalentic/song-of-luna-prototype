@@ -7,6 +7,8 @@ class_name Player
 @onready var interact_area: Area3D = %Camera/InteractArea
 @onready var interact_raycast: RayCast3D = %Camera/InteractArea/InteractRayCast
 @onready var attack_raycast: RayCast3D = %Camera/AttackRayCast
+@onready var weapon_node: Node3D = %Camera/WeaponNode
+@onready var drop_zone: Node3D = %DropZone
 
 @export_category("Movement")
 @export var MOVE_SPEED: float = 4.0
@@ -24,6 +26,9 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 @export_category("Inventory")
 @export var INVENTORY: Inventory
 
+@export_category("Level")
+@export var CURRENT_LEVEL_SCENE: Node3D
+
 var current_speed: float = 0.0
 var current_stamina: float = 0.0
 var is_recovering_stamina: bool = false
@@ -34,6 +39,11 @@ func _ready():
 	
 	# Hide mouse cursor on start
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+	# Connect signals
+	SignalBus.equiped_item.connect(_on_item_equip)
+	SignalBus.unequiped_item.connect(_on_item_unequip)
+	SignalBus.drop_item.connect(_on_drop_item)
 
 	current_stamina = MAX_STAMINA
 
@@ -92,3 +102,26 @@ func _physics_process(delta: float):
 # Inventory functions
 func pick_up(item: InvItem, amount: int):
 	INVENTORY.insert(item, amount)
+
+func _on_item_equip(slot: InvSlot):
+	if slot.item.item_type == InvItem.ItemType.WEAPON and slot.item.scene_path != null:
+		var weapon_scene: PackedScene = load(slot.item.scene_path)
+		weapon_node.add_child(weapon_scene.instantiate())
+
+func _on_item_unequip(_slot: InvSlot):
+	var nodes: Array[Node] = weapon_node.get_children()
+	for node in nodes:
+		node.queue_free()
+
+func _on_drop_item(slot: InvSlot):
+	if slot.item.scene_path != null:
+		var item_packed: PackedScene = load(slot.item.scene_path)
+		var item_scene: Node3D = item_packed.instantiate()
+		
+		# Convert local positions
+		item_scene.position = CURRENT_LEVEL_SCENE.to_local(pivot.to_global(drop_zone.position))
+		item_scene.rotation = pivot.rotation
+		item_scene.rotation.y -= deg_to_rad(180)
+
+		CURRENT_LEVEL_SCENE.add_child(item_scene)
+		INVENTORY.remove(slot.item, slot.amount)

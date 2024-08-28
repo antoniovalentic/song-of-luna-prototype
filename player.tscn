@@ -61,9 +61,16 @@ shape = SubResource("CapsuleShape3D_mtmyc")
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 1.8, 0)
 
+[node name="DropZone" type="Node3D" parent="CameraPivot"]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.37441e-07, -1.78348, -1.57214)
+
 [node name="Camera" type="Camera3D" parent="CameraPivot"]
 unique_name_in_owner = true
 current = true
+
+[node name="WeaponNode" type="Node3D" parent="CameraPivot/Camera"]
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0.864987, -1.11316, -1.21308)
 
 [node name="Flashlight" type="SpotLight3D" parent="CameraPivot/Camera"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.386791, -0.306319, -3.38144e-08)
