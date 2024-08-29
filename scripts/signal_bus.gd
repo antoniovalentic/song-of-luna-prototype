@@ -15,5 +15,9 @@ signal drop_item(slot: InvSlot)
 #signal hold_item(slot: InvSlot, og_ui_slot: InventorySlot)
 #signal release_item(ui_slot: InventorySlot)
 
+# Item signals
+signal item_shot(item: InvItem, damage: float)
+signal heal_player(amount: float)
+
 func _ready():
 	pass

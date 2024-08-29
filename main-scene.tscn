@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c4skaw306j3u5"]
+[gd_scene load_steps=21 format=3 uid="uid://c4skaw306j3u5"]
 
 [ext_resource type="Texture2D" uid="uid://5yilpmr5knkg" path="res://models/textures/moon_diffuse.png" id="1_dhvcg"]
 [ext_resource type="Shader" path="res://shaders/space_sky.gdshader" id="1_enxod"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cwpo78f50wouh" path="res://player.tscn" id="2_m1uo0"]
 [ext_resource type="PackedScene" uid="uid://cd4bjhn0qultm" path="res://small_health.tscn" id="4_eh8b4"]
 [ext_resource type="PackedScene" uid="uid://crp46hafgqcwo" path="res://models/pyramid.glb" id="5_o1km6"]
+[ext_resource type="PackedScene" uid="uid://d4nldq1x7vpsk" path="res://enemy.tscn" id="7_gah88"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_go17a"]
 shader = ExtResource("1_enxod")
@@ -123,3 +124,6 @@ mesh = SubResource("CylinderMesh_yrcjo")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("CylinderShape3D_vlrd5")
+
+[node name="Enemy" parent="." instance=ExtResource("7_gah88")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.90417, 0, 8.87405)

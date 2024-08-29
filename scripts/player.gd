@@ -44,6 +44,7 @@ func _ready():
 	SignalBus.equiped_item.connect(_on_item_equip)
 	SignalBus.unequiped_item.connect(_on_item_unequip)
 	SignalBus.drop_item.connect(_on_drop_item)
+	SignalBus.item_shot.connect(_on_item_shot)
 
 	current_stamina = MAX_STAMINA
 
@@ -125,3 +126,9 @@ func _on_drop_item(slot: InvSlot):
 
 		CURRENT_LEVEL_SCENE.add_child(item_scene)
 		INVENTORY.remove(slot.item, slot.amount)
+
+func _on_item_shot(item: InvItem, damage: float):
+	if item.item_type == InvItem.ItemType.WEAPON:
+		var attack_collider: Object = attack_raycast.get_collider()
+		if attack_collider is EnemyHurtBox:
+			attack_collider.recieve_damage(damage)

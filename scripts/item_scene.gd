@@ -15,6 +15,10 @@ func _ready():
     mesh_outline.visible = false
     item.scene_path = self.scene_file_path
 
+func _input(_event: InputEvent):
+    if Input.is_action_just_pressed("lm_click") and item.effect != null:
+        item.effect.activate(item)
+
 
 func _area_entered_area(area: Area3D):
     if area.is_in_group("Player_GrabArea"):

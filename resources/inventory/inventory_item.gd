@@ -12,3 +12,5 @@ enum ItemType {CONSUMABLE, USABLE, WEAPON}
 @export var ui_sprite: Texture2D
 
 @export var scene_path: String
+
+@export var effect: ItemEffect
