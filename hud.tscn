@@ -17,6 +17,27 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xgjwr")
 
+[node name="ReloadBar" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = 46.0
+offset_right = 150.0
+offset_bottom = 66.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_yd04o")
+theme_override_styles/fill = SubResource("StyleBoxFlat_thbfb")
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="ReloadBar"]
+one_shot = true
+
 [node name="StaminaBar" type="ProgressBar" parent="."]
 layout_mode = 1
 anchors_preset = 7
@@ -39,4 +60,5 @@ show_percentage = false
 process_callback = 0
 wait_time = 2.0
 
+[connection signal="timeout" from="ReloadBar/Timer" to="." method="_on_reload_timer_timeout"]
 [connection signal="timeout" from="StaminaBar/Timer" to="." method="_on_stamina_timer_timeout"]

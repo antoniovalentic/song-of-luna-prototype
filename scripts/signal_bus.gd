@@ -3,6 +3,8 @@ extends Node
 # GUI signals
 signal gui_hidden()
 signal gui_shown()
+signal reload_started()
+signal reload_done()
 
 # Player signals
 signal player_speed_updated(current_speed: float, current_stamina: float, max_stamina: float)
@@ -16,7 +18,8 @@ signal drop_item(slot: InvSlot)
 #signal release_item(ui_slot: InventorySlot)
 
 # Item signals
-signal item_shot(item: InvItem, damage: float)
+signal weapon_shot(item: InvItem, weapon_type: ItemEffectWeapon.WeaponType, damage: float)
+signal ammo_count_updated(capacity: int, count: int)
 signal heal_player(amount: float)
 
 func _ready():

@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=4 uid="uid://c3jb0dy51pgtv"]
+[gd_scene load_steps=14 format=4 uid="uid://c3jb0dy51pgtv"]
 
 [ext_resource type="PackedScene" uid="uid://bahl3lbuw417v" path="res://models/PGT-gun.glb" id="1_kgpmw"]
 [ext_resource type="Script" path="res://scripts/item_scene.gd" id="2_hx14e"]
 [ext_resource type="Resource" uid="uid://c1rf3xiepl173" path="res://resources/inventory/weapons/test_weapon.tres" id="3_32duf"]
+[ext_resource type="Script" path="res://scripts/pgt_gun_particles.gd" id="4_nbfkw"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b38lv"]
 albedo_color = Color(0.856067, 0.856067, 0.856067, 1)
@@ -48,6 +49,25 @@ shading_mode = 0
 [sub_resource type="BoxShape3D" id="BoxShape3D_mx6f4"]
 size = Vector3(1, 3.8852, 5.54877)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c76o1"]
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+emission_enabled = true
+emission = Color(1, 0.709804, 0, 1)
+emission_energy_multiplier = 0.2
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_83roc"]
+material = SubResource("StandardMaterial3D_c76o1")
+size = Vector2(0.05, 0.05)
+
+[sub_resource type="Gradient" id="Gradient_k4f2d"]
+offsets = PackedFloat32Array(0, 0.605598, 1)
+colors = PackedColorArray(0.998273, 0.788429, 7.70092e-07, 1, 0.999125, 0.39923, 3.89945e-07, 1, 1, 0, 0, 1)
+
 [node name="PGT-gun" instance=ExtResource("1_kgpmw")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 script = ExtResource("2_hx14e")
@@ -66,6 +86,30 @@ surface_material_override/0 = SubResource("StandardMaterial3D_fxnrb")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.94937, 0.773346)
 shape = SubResource("BoxShape3D_mx6f4")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.9894, 3.6287)
+cast_shadow = 0
+emitting = false
+amount = 30
+lifetime = 0.25
+one_shot = true
+explosiveness = 0.5
+randomness = 0.5
+lifetime_randomness = 0.5
+local_coords = true
+mesh = SubResource("QuadMesh_83roc")
+emission_shape = 1
+emission_sphere_radius = 0.25
+direction = Vector3(0, 0, 1)
+spread = 35.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 50.0
+color_ramp = SubResource("Gradient_k4f2d")
+hue_variation_min = 1.0
+hue_variation_max = 1.0
+script = ExtResource("4_nbfkw")
 
 [connection signal="area_entered" from="." to="." method="_area_entered_area"]
 [connection signal="area_exited" from="." to="." method="_area_exited_area"]

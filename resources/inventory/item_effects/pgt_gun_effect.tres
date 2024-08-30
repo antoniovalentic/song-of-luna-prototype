@@ -1,7 +1,11 @@
-[gd_resource type="Resource" script_class="ItemEffectPGT" load_steps=2 format=3 uid="uid://bkm6hcejrjm5c"]
+[gd_resource type="Resource" script_class="ItemEffectWeapon" load_steps=2 format=3 uid="uid://evh26u2t3nox"]
 
-[ext_resource type="Script" path="res://resources/inventory/item_effect_pgt_gun.gd" id="1_lcek4"]
+[ext_resource type="Script" path="res://resources/inventory/item_effect_weapon.gd" id="1_8ctfd"]
 
 [resource]
-script = ExtResource("1_lcek4")
+script = ExtResource("1_8ctfd")
+weapon_type = 1
 damage = 20.0
+ammo_amount = 0
+mag_amount = 6
+mag_capacity = 6

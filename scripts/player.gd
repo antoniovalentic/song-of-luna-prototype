@@ -44,7 +44,8 @@ func _ready():
 	SignalBus.equiped_item.connect(_on_item_equip)
 	SignalBus.unequiped_item.connect(_on_item_unequip)
 	SignalBus.drop_item.connect(_on_drop_item)
-	SignalBus.item_shot.connect(_on_item_shot)
+	SignalBus.weapon_shot.connect(_on_weapon_shot)
+	SignalBus.reload_done.connect(_on_reload_done)
 
 	current_stamina = MAX_STAMINA
 
@@ -56,10 +57,17 @@ func _input(event: InputEvent):
 			interact_collider.collect_item()
 
 func _unhandled_input(event: InputEvent):
+	# Rotate camera
 	if event is InputEventMouseMotion:
 		pivot.rotate_y(-event.relative.x * LOOK_SENSITIVITY)
 		camera.rotate_x(-event.relative.y * LOOK_SENSITIVITY)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-X_ROTATION_LIMIT), deg_to_rad(X_ROTATION_LIMIT))
+	
+	# Reload
+	if event.is_action_pressed("reload"):
+		var equiped_item: InvItem = INVENTORY.equiped_item.item
+		if equiped_item.effect != null and equiped_item.effect is ItemEffectWeapon and equiped_item.effect.weapon_type == ItemEffectWeapon.WeaponType.RANGED:
+			SignalBus.reload_started.emit()
 
 func _unhandled_key_input(event: InputEvent):
 	# Show mouse cursor on Esc press
@@ -127,8 +135,14 @@ func _on_drop_item(slot: InvSlot):
 		CURRENT_LEVEL_SCENE.add_child(item_scene)
 		INVENTORY.remove(slot.item, slot.amount)
 
-func _on_item_shot(item: InvItem, damage: float):
+func _on_weapon_shot(item: InvItem, _weapon_type: ItemEffectWeapon.WeaponType, damage: float):
 	if item.item_type == InvItem.ItemType.WEAPON:
 		var attack_collider: Object = attack_raycast.get_collider()
 		if attack_collider is EnemyHurtBox:
 			attack_collider.recieve_damage(damage)
+
+func _on_reload_done():
+	var equiped_item: InvItem = INVENTORY.equiped_item.item
+	if equiped_item.effect != null and equiped_item.effect is ItemEffectWeapon and equiped_item.effect.weapon_type == ItemEffectWeapon.WeaponType.RANGED:
+		var effect: ItemEffectWeapon = equiped_item.effect
+		effect.reload()

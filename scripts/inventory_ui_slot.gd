@@ -55,5 +55,7 @@ func update_data():
 			amount_label.visible = false
 		
 		item_sprite.texture = slot_data.item.ui_sprite
-		amount_label.text = str(slot_data.amount)
 		title_label.text = str(slot_data.item.name).to_upper()
+
+		# Ammo count for weapon
+		amount_label.text = str(slot_data.amount)

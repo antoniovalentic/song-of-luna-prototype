@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://b6wk1k8gw3hht"]
+[gd_scene load_steps=7 format=3 uid="uid://b6wk1k8gw3hht"]
 
 [ext_resource type="Script" path="res://scripts/menu_gui.gd" id="1_0gq57"]
 [ext_resource type="PackedScene" uid="uid://blbuqihsma4oy" path="res://inventory_ui.tscn" id="2_fr1ct"]
 [ext_resource type="Script" path="res://scripts/health.gd" id="3_s7m6u"]
 [ext_resource type="PackedScene" uid="uid://bufldfdk3wo0j" path="res://health_bar.tscn" id="4_80mv2"]
+[ext_resource type="Script" path="res://scripts/weapon_ui_stats.gd" id="5_f2o2t"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_kj557"]
 font_size = 20
@@ -80,3 +81,27 @@ offset_top = -50.0
 offset_right = 256.0
 offset_bottom = 0.0
 grow_vertical = 0
+
+[node name="Weapon" type="Control" parent="PlayerStats"]
+anchors_preset = 0
+offset_top = 110.0
+offset_right = 256.0
+offset_bottom = 219.0
+script = ExtResource("5_f2o2t")
+
+[node name="Label" type="Label" parent="PlayerStats/Weapon"]
+texture_filter = 1
+layout_mode = 0
+offset_right = 83.0
+offset_bottom = 28.0
+text = "Ammo"
+label_settings = SubResource("LabelSettings_kj557")
+
+[node name="MagazineLabel" type="Label" parent="PlayerStats/Weapon"]
+texture_filter = 1
+layout_mode = 0
+offset_top = 32.0
+offset_right = 67.0
+offset_bottom = 60.0
+text = "Magazine: 6/6"
+label_settings = SubResource("LabelSettings_kj557")
