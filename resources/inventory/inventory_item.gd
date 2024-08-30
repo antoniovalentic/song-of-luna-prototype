@@ -1,7 +1,7 @@
 extends Resource
 class_name InvItem
 
-enum ItemType {CONSUMABLE, USABLE, WEAPON}
+enum ItemType {CONSUMABLE, USABLE, WEAPON, AMMO}
 
 @export var name: String
 @export var description: String

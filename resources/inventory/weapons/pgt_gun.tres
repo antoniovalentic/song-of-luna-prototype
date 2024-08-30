@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="InvItem" load_steps=4 format=3 uid="uid://c1rf3xiepl173"]
+
+[ext_resource type="Resource" uid="uid://evh26u2t3nox" path="res://resources/inventory/item_effects/pgt_gun_effect.tres" id="1_aqa6k"]
+[ext_resource type="Script" path="res://resources/inventory/inventory_item.gd" id="2_ekjnt"]
+[ext_resource type="Texture2D" uid="uid://tbwdggogfbl7" path="res://sprites/PGT-pistol-sprite.png" id="3_ablam"]
+
+[resource]
+script = ExtResource("2_ekjnt")
+name = "Test weapon"
+description = "test weapon"
+item_type = 2
+max_stack = 1
+is_usable = true
+ui_sprite = ExtResource("3_ablam")
+scene_path = "res://wpn_pgt_gun.tscn"
+effect = ExtResource("1_aqa6k")

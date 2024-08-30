@@ -41,7 +41,8 @@ func update(slot: InvSlot):
 func update_data():
 	if not self.slot_data:
 		return
-	if !slot_data.item:
+	if !slot_data.item or slot_data.amount == 0:
+		slot_data.item = null
 		item_sprite.visible = false
 		amount_label.visible = false
 		item_sprite.texture = null

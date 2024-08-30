@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8g2on3cpu6ge"]
+[gd_scene load_steps=5 format=3 uid="uid://c8g2on3cpu6ge"]
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_xgjwr"]
+[ext_resource type="Texture2D" uid="uid://p7c0hms5f57l" path="res://sprites/crosshair.png" id="2_dh3h7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yd04o"]
 bg_color = Color(0, 0, 0, 0.137255)
@@ -59,6 +60,28 @@ show_percentage = false
 [node name="Timer" type="Timer" parent="StaminaBar"]
 process_callback = 0
 wait_time = 2.0
+
+[node name="CrosshairContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CrosshairContainer"]
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="CrosshairContainer/Panel"]
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("2_dh3h7")
 
 [connection signal="timeout" from="ReloadBar/Timer" to="." method="_on_reload_timer_timeout"]
 [connection signal="timeout" from="StaminaBar/Timer" to="." method="_on_stamina_timer_timeout"]

@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bahl3lbuw417v" path="res://models/PGT-gun.glb" id="1_kgpmw"]
 [ext_resource type="Script" path="res://scripts/item_scene.gd" id="2_hx14e"]
-[ext_resource type="Resource" uid="uid://c1rf3xiepl173" path="res://resources/inventory/weapons/test_weapon.tres" id="3_32duf"]
+[ext_resource type="Resource" uid="uid://c1rf3xiepl173" path="res://resources/inventory/weapons/pgt_gun.tres" id="3_32duf"]
 [ext_resource type="Script" path="res://scripts/pgt_gun_particles.gd" id="4_nbfkw"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b38lv"]

@@ -8,12 +8,12 @@ extends Control
 
 var hide_stamina: bool = false
 
-func _ready() -> void:
+func _ready():
     reloadBar.visible = false
     SignalBus.player_speed_updated.connect(_speed_updated)
     SignalBus.reload_started.connect(_on_reload_started)
 
-func _process(_delta: float) -> void:
+func _process(_delta: float):
     if reloadBar.visible == true:
         reloadBar.value = (reloadTimer.wait_time - reloadTimer.time_left) / reloadTimer.wait_time * 100.0
 
@@ -30,8 +30,9 @@ func _speed_updated(_speed: float, stamina: float, max_value: float):
     staminaBar.visible = !hide_stamina
 
 func _on_reload_started():
-    reloadBar.visible = true
-    reloadTimer.start()
+    if reloadTimer.time_left == 0:
+        reloadBar.visible = true
+        reloadTimer.start()
 
 
 func _on_stamina_timer_timeout():

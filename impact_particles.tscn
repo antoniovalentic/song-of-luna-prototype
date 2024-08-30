@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://d0xpvfo3a4y53"]
+
+[ext_resource type="Script" path="res://scripts/impact_particles.gd" id="1_b2cmr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ohpws"]
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+emission_enabled = true
+emission = Color(1, 0.678431, 0, 1)
+texture_filter = 0
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_ouebd"]
+material = SubResource("StandardMaterial3D_ohpws")
+size = Vector2(0.08, 0.08)
+
+[sub_resource type="Gradient" id="Gradient_u28a8"]
+interpolation_mode = 2
+colors = PackedColorArray(1, 0.839216, 0, 1, 1, 0.32549, 0, 1)
+
+[node name="ImpactShot" type="Node3D"]
+script = ExtResource("1_b2cmr")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+cast_shadow = 0
+emitting = false
+amount = 10
+lifetime = 0.25
+one_shot = true
+explosiveness = 1.0
+randomness = 0.5
+lifetime_randomness = 0.5
+mesh = SubResource("QuadMesh_ouebd")
+emission_shape = 1
+emission_sphere_radius = 1.0
+spread = 180.0
+gravity = Vector3(0, -2, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+color_ramp = SubResource("Gradient_u28a8")

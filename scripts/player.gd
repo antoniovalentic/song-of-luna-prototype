@@ -10,6 +10,8 @@ class_name Player
 @onready var weapon_node: Node3D = %Camera/WeaponNode
 @onready var drop_zone: Node3D = %DropZone
 
+@onready var impact_particles: PackedScene = preload("res://impact_particles.tscn")
+
 @export_category("Movement")
 @export var MOVE_SPEED: float = 4.0
 @export var SPRINT_SPEED: float = 7.0
@@ -65,9 +67,20 @@ func _unhandled_input(event: InputEvent):
 	
 	# Reload
 	if event.is_action_pressed("reload"):
+		# Check if weapon equiped
 		var equiped_item: InvItem = INVENTORY.equiped_item.item
 		if equiped_item.effect != null and equiped_item.effect is ItemEffectWeapon and equiped_item.effect.weapon_type == ItemEffectWeapon.WeaponType.RANGED:
-			SignalBus.reload_started.emit()
+			# Check if has ammo type
+			var weapon_effect: ItemEffectWeapon = equiped_item.effect
+			var ammo_type: InvItem = weapon_effect.ammo_type
+			var item_slots: Array[InvSlot] = INVENTORY.slots.filter(func(slot): return slot.item != null)
+			if !item_slots.is_empty():
+				for i in item_slots.size():
+					var item_slot: InvSlot = item_slots[i]
+					if item_slot.item == ammo_type:
+						SignalBus.reload_started.emit()
+						break
+				
 
 func _unhandled_key_input(event: InputEvent):
 	# Show mouse cursor on Esc press
@@ -137,6 +150,12 @@ func _on_drop_item(slot: InvSlot):
 
 func _on_weapon_shot(item: InvItem, _weapon_type: ItemEffectWeapon.WeaponType, damage: float):
 	if item.item_type == InvItem.ItemType.WEAPON:
+		var collision_point: Vector3 = attack_raycast.get_collision_point()
+		var impact_instance: Node3D = impact_particles.instantiate()
+		impact_instance.position = collision_point
+		impact_instance.rotation.y -= deg_to_rad(180)
+		CURRENT_LEVEL_SCENE.add_child(impact_instance)
+
 		var attack_collider: Object = attack_raycast.get_collider()
 		if attack_collider is EnemyHurtBox:
 			attack_collider.recieve_damage(damage)
@@ -144,5 +163,15 @@ func _on_weapon_shot(item: InvItem, _weapon_type: ItemEffectWeapon.WeaponType, d
 func _on_reload_done():
 	var equiped_item: InvItem = INVENTORY.equiped_item.item
 	if equiped_item.effect != null and equiped_item.effect is ItemEffectWeapon and equiped_item.effect.weapon_type == ItemEffectWeapon.WeaponType.RANGED:
-		var effect: ItemEffectWeapon = equiped_item.effect
-		effect.reload()
+		# Check if has ammo type
+		var weapon_effect: ItemEffectWeapon = equiped_item.effect
+		var ammo_type: InvItem = weapon_effect.ammo_type
+		var item_slots: Array[InvSlot] = INVENTORY.slots.filter(func(slot): return slot.item != null)
+		if !item_slots.is_empty():
+			for i in item_slots.size():
+				var item_slot: InvSlot = item_slots[i]
+				if item_slot.item == ammo_type:
+					var ammo_remaining: int = weapon_effect.reload(item_slot.amount)
+					item_slot.amount = ammo_remaining
+					SignalBus.slots_updated.emit()
+					break

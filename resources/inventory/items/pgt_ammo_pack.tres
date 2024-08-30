@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="InvItem" load_steps=3 format=3 uid="uid://yf68vpude0bu"]
+
+[ext_resource type="Script" path="res://resources/inventory/inventory_item.gd" id="1_uhgqi"]
+[ext_resource type="Texture2D" uid="uid://bvmifkum4rncv" path="res://sprites/ammo-item-sprite.png" id="2_r3hcl"]
+
+[resource]
+script = ExtResource("1_uhgqi")
+name = "PGT Ammo"
+description = "Ammo for PGT gun"
+item_type = 3
+max_stack = 60
+is_usable = false
+ui_sprite = ExtResource("2_r3hcl")
+scene_path = "res://ammo_box.tscn"

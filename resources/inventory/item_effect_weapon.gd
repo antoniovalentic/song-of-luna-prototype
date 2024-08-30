@@ -4,10 +4,10 @@ class_name ItemEffectWeapon
 enum WeaponType {MEELE, RANGED}
 
 @export var weapon_type: WeaponType
+@export var ammo_type: InvItem
 @export var damage: float
 
 @export_category("Ranged weapon stats")
-@export var ammo_amount: int = 0
 @export_range(0, 6) var mag_amount: int = 6
 @export var mag_capacity: int = 6
 
@@ -23,6 +23,13 @@ func activate(item: InvItem):
 func deactivate(item: InvItem):
     pass
 
-func reload():
-    mag_amount = mag_capacity
+func reload(ammo_held: int) -> int:
+    if mag_amount == mag_capacity:
+        return ammo_held
+    
+    var taken_ammo: int = clampi(ammo_held, 0, mag_capacity - mag_amount)
+    mag_amount += taken_ammo
     SignalBus.ammo_count_updated.emit(mag_capacity, mag_amount)
+    
+    var remaining_ammo: int = ammo_held - taken_ammo
+    return remaining_ammo

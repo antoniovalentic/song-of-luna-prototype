@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://bwntc06mnh4fu"]
+
+[ext_resource type="Script" path="res://scripts/item_scene.gd" id="1_d4lqp"]
+[ext_resource type="Resource" uid="uid://yf68vpude0bu" path="res://resources/inventory/items/pgt_ammo_pack.tres" id="2_ufwvp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6rpty"]
+albedo_color = Color(0.369102, 0, 0.0556463, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hvjbq"]
+material = SubResource("StandardMaterial3D_6rpty")
+size = Vector3(0.5, 0.3, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ncykq"]
+shading_mode = 0
+
+[sub_resource type="BoxMesh" id="BoxMesh_4eifp"]
+material = SubResource("StandardMaterial3D_ncykq")
+flip_faces = true
+size = Vector3(0.5, 0.3, 0.5)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_vf7ue"]
+data = PackedVector3Array(-0.25, 0.15, 0.25, 0.25, 0.15, 0.25, -0.25, -0.15, 0.25, 0.25, 0.15, 0.25, 0.25, -0.15, 0.25, -0.25, -0.15, 0.25, 0.25, 0.15, -0.25, -0.25, 0.15, -0.25, 0.25, -0.15, -0.25, -0.25, 0.15, -0.25, -0.25, -0.15, -0.25, 0.25, -0.15, -0.25, 0.25, 0.15, 0.25, 0.25, 0.15, -0.25, 0.25, -0.15, 0.25, 0.25, 0.15, -0.25, 0.25, -0.15, -0.25, 0.25, -0.15, 0.25, -0.25, 0.15, -0.25, -0.25, 0.15, 0.25, -0.25, -0.15, -0.25, -0.25, 0.15, 0.25, -0.25, -0.15, 0.25, -0.25, -0.15, -0.25, 0.25, 0.15, 0.25, -0.25, 0.15, 0.25, 0.25, 0.15, -0.25, -0.25, 0.15, 0.25, -0.25, 0.15, -0.25, 0.25, 0.15, -0.25, -0.25, -0.15, 0.25, 0.25, -0.15, 0.25, -0.25, -0.15, -0.25, 0.25, -0.15, 0.25, 0.25, -0.15, -0.25, -0.25, -0.15, -0.25)
+
+[node name="Ammo" type="Area3D"]
+script = ExtResource("1_d4lqp")
+item = ExtResource("2_ufwvp")
+amount = 24
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+mesh = SubResource("BoxMesh_hvjbq")
+
+[node name="MeshOutline" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.04, 0, 0, 0, 1.04, 0, 0, 0, 1.04, 0, 0.15, 0)
+mesh = SubResource("BoxMesh_4eifp")
+skeleton = NodePath("../Mesh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+shape = SubResource("ConcavePolygonShape3D_vf7ue")
+
+[connection signal="area_entered" from="." to="." method="_area_entered_area"]
+[connection signal="area_exited" from="." to="." method="_area_exited_area"]

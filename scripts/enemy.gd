@@ -36,7 +36,6 @@ func fake_death():
     self.queue_free()
 
 func damage_enemy(damage: float):
-    print_debug("Taken damage")
     HEALTH -= damage
     if HEALTH <= 0:
         HEALTH = 0
