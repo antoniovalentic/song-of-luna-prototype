@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://d4nldq1x7vpsk"]
+[gd_scene load_steps=11 format=3 uid="uid://d4nldq1x7vpsk"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_6ryrt"]
 [ext_resource type="Texture2D" uid="uid://be0yps2d366ic" path="res://sprites/flame-sprite-1.png" id="2_1cfv5"]
 [ext_resource type="Script" path="res://scripts/enemy_hurt_box.gd" id="2_mx87f"]
+[ext_resource type="PackedScene" uid="uid://ccsbgvia0855b" path="res://damned_one.tscn" id="3_4osyu"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ia70v"]
 transparency = 1
@@ -33,6 +34,8 @@ height = 2.1
 
 [node name="Enemy" type="CharacterBody3D"]
 script = ExtResource("1_6ryrt")
+MIN_SLEEP = 0.0
+MAX_SLEEP = 10.0
 
 [node name="ParticleRoot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -43,7 +46,6 @@ amount = 3000
 lifetime = 2.0
 lifetime_randomness = 0.5
 visibility_aabb = AABB(-2, -2, -2, 4, 4, 4)
-local_coords = true
 mesh = SubResource("QuadMesh_awirk")
 emission_shape = 1
 emission_sphere_radius = 0.75
@@ -53,8 +55,12 @@ gravity = Vector3(0, 3, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_wm38r")
 
+[node name="DamnedOne" parent="." instance=ExtResource("3_4osyu")]
+transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 0, 0, 0)
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
 mesh = SubResource("CapsuleMesh_homj5")
 
 [node name="HurtBox" type="Area3D" parent="."]
@@ -63,3 +69,10 @@ script = ExtResource("2_mx87f")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtBox"]
 shape = SubResource("CapsuleShape3D_uphgo")
+
+[node name="FakeDeathTimer" type="Timer" parent="."]
+
+[node name="RealDeathTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="FakeDeathTimer" to="." method="_on_fake_timer_timeout"]
+[connection signal="timeout" from="RealDeathTimer" to="." method="_on_real_timer_timeout"]
