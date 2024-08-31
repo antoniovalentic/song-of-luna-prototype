@@ -17,9 +17,10 @@ func _gui_input(event):
 		return
 	
 	if event is InputEventMouseButton and self.type == SlotType.INVENTORY:
+		# Drop item
 		if Input.is_action_just_pressed("rm_click"):
 			if slot_data != null:
-				SignalBus.drop_item.emit(slot_data)
+				SignalBus.drop_item.emit(slot_data, slot_data.amount)
 				slot_data.item = null
 		elif event.double_click:
 			# If item, equip; if consumable, consume

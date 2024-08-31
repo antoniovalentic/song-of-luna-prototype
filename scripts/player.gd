@@ -135,10 +135,11 @@ func _on_item_unequip(_slot: InvSlot):
 	for node in nodes:
 		node.queue_free()
 
-func _on_drop_item(slot: InvSlot):
+func _on_drop_item(slot: InvSlot, amount: int):
 	if slot.item.scene_path != null:
 		var item_packed: PackedScene = load(slot.item.scene_path)
-		var item_scene: Node3D = item_packed.instantiate()
+		var item_scene: ItemScene = item_packed.instantiate()
+		item_scene.amount = amount
 		
 		# Convert local positions
 		item_scene.position = CURRENT_LEVEL_SCENE.to_local(pivot.to_global(drop_zone.position))

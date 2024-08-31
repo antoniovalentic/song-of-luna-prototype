@@ -13,7 +13,7 @@ signal player_speed_updated(current_speed: float, current_stamina: float, max_st
 signal equiped_item(slot: InvSlot)
 signal unequiped_item(slot: InvSlot)
 signal slots_updated
-signal drop_item(slot: InvSlot)
+signal drop_item(slot: InvSlot, amount: int)
 #signal hold_item(slot: InvSlot, og_ui_slot: InventorySlot)
 #signal release_item(ui_slot: InventorySlot)
 
