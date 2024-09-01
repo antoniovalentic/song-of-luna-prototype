@@ -12,8 +12,10 @@ func _ready():
     reloadBar.visible = false
     SignalBus.player_speed_updated.connect(_speed_updated)
     SignalBus.reload_started.connect(_on_reload_started)
+    SignalBus.game_paused.connect(_on_game_paused)
+    SignalBus.game_unpaused.connect(_on_game_unpaused)
 
-func _process(_delta: float):
+func _process(_delta: float):  
     if reloadBar.visible == true:
         reloadBar.value = (reloadTimer.wait_time - reloadTimer.time_left) / reloadTimer.wait_time * 100.0
 
@@ -42,3 +44,9 @@ func _on_stamina_timer_timeout():
 func _on_reload_timer_timeout():
     reloadBar.visible = false
     SignalBus.reload_done.emit()
+
+func _on_game_paused():
+    visible = false
+
+func _on_game_unpaused():
+    visible = true

@@ -5,6 +5,8 @@ signal gui_hidden()
 signal gui_shown()
 signal reload_started()
 signal reload_done()
+signal game_paused()
+signal game_unpaused()
 
 # Player signals
 signal player_speed_updated(current_speed: float, current_stamina: float, max_stamina: float)

@@ -4,6 +4,7 @@ extends Node
 
 # Variables
 var player_instance: Player = null
+var game_paused: bool = false
 
 func _ready():
 	# Resolution scaling settings
@@ -14,3 +15,11 @@ func _ready():
 func set_player_reference(player: Player):
 	player_instance = player
 
+
+func toggle_pause_game():
+	if !game_paused:
+		game_paused = true
+		SignalBus.game_paused.emit()
+	else:
+		game_paused = false
+		SignalBus.game_unpaused.emit()

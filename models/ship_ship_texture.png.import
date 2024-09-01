@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cv83k45ojrshv"
-path.s3tc="res://.godot/imported/flame-sprite-3.png-7155f26bf93c072987fabd4aaac7f58d.s3tc.ctex"
+uid="uid://ihyjr5hfmve7"
+path.s3tc="res://.godot/imported/ship_ship_texture.png-31b30121178418c5ec8fbb87439e5abe.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "8616082821e13292c2536c4946c64668"
+}
 
 [deps]
 
-source_file="res://sprites/flame-sprite-3.png"
-dest_files=["res://.godot/imported/flame-sprite-3.png-7155f26bf93c072987fabd4aaac7f58d.s3tc.ctex"]
+source_file="res://models/ship_ship_texture.png"
+dest_files=["res://.godot/imported/ship_ship_texture.png-31b30121178418c5ec8fbb87439e5abe.s3tc.ctex"]
 
 [params]
 

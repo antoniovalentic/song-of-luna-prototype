@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://bnyenue78c6u2"]
+
+[ext_resource type="Shader" path="res://shaders/space_sky.gdshader" id="1_5q26c"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_go17a"]
+shader = ExtResource("1_5q26c")
+shader_parameter/sky_color = Color(0, 0, 0, 1)
+shader_parameter/star_base_color = Color(1, 1, 1, 1)
+shader_parameter/star_hue_offset = 0.6
+shader_parameter/star_intensity = 0.08
+shader_parameter/layer_scale = 15.0
+shader_parameter/layer_scale_step = 5.0
+shader_parameter/layers_count = 1
+
+[sub_resource type="Sky" id="Sky_jf7ng"]
+sky_material = SubResource("ShaderMaterial_go17a")
+
+[sub_resource type="Environment" id="Environment_iif2h"]
+background_mode = 2
+sky = SubResource("Sky_jf7ng")
+ambient_light_color = Color(1, 1, 1, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment"]
+environment = SubResource("Environment_iif2h")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.977574, 3.45309e-09, -0.210591, 0.210591, -4.23904e-08, 0.977574, -5.55139e-09, -1, -4.2167e-08, -400, 238, 0)
+light_energy = 0.012
+directional_shadow_mode = 0
+sky_mode = 1

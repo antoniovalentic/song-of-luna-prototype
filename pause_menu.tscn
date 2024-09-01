@@ -1,0 +1,84 @@
+[gd_scene load_steps=3 format=3 uid="uid://draq8rm82hgog"]
+
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="1_bo8y0"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ahi5l"]
+
+[node name="PauseMenu" type="CanvasLayer"]
+process_mode = 2
+script = ExtResource("1_bo8y0")
+
+[node name="Control" type="Control" parent="."]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.0588235)
+
+[node name="Label" type="Label" parent="Control/ColorRect"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -253.0
+offset_top = -257.0
+offset_right = -153.0
+offset_bottom = -234.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(5, 5)
+text = "Song of Luna"
+label_settings = SubResource("LabelSettings_ahi5l")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="Control/ColorRect"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.5
+offset_top = -12.0
+offset_right = -34.5
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3, 3)
+text = "Resume"
+
+[node name="QuitButton" type="Button" parent="Control/ColorRect"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -63.5
+offset_top = 103.0
+offset_right = -21.5
+offset_bottom = 134.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3, 3)
+text = "Quit"
+
+[connection signal="pressed" from="Control/ColorRect/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="Control/ColorRect/QuitButton" to="." method="_on_quit_button_pressed"]

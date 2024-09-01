@@ -1,0 +1,24 @@
+[gd_scene load_steps=7 format=3 uid="uid://6gpi8f0ub282"]
+
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_tql2b"]
+[ext_resource type="PackedScene" uid="uid://bnyenue78c6u2" path="res://world_environment.tscn" id="1_uquo3"]
+[ext_resource type="PackedScene" uid="uid://bmij4p4w6dm17" path="res://models/moon_inverse_cylinder.glb" id="2_i1ev4"]
+[ext_resource type="PackedScene" uid="uid://crp46hafgqcwo" path="res://models/pyramid.glb" id="3_6ovfs"]
+[ext_resource type="PackedScene" uid="uid://cwpo78f50wouh" path="res://player.tscn" id="4_xd4dh"]
+[ext_resource type="PackedScene" uid="uid://draq8rm82hgog" path="res://pause_menu.tscn" id="6_c7tk4"]
+
+[node name="MainMenu" type="Node3D"]
+script = ExtResource("1_tql2b")
+
+[node name="WorldEnvironment" parent="." instance=ExtResource("1_uquo3")]
+
+[node name="MoonInverseCylinder" parent="." instance=ExtResource("2_i1ev4")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, -56.2947, 0)
+
+[node name="Pyramid" parent="." instance=ExtResource("3_6ovfs")]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, -400, -7, 0)
+
+[node name="Player" parent="." instance=ExtResource("4_xd4dh")]
+transform = Transform3D(-3.98763e-08, 0.409605, -0.912263, 1.79044e-08, 0.912263, 0.409605, 1, 0, -4.37114e-08, -105.397, -4.89091, -0.824986)
+
+[node name="PauseMenu" parent="." instance=ExtResource("6_c7tk4")]

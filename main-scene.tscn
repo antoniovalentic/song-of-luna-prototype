@@ -1,7 +1,7 @@
-[gd_scene load_steps=24 format=3 uid="uid://c4skaw306j3u5"]
+[gd_scene load_steps=22 format=3 uid="uid://c4skaw306j3u5"]
 
+[ext_resource type="PackedScene" uid="uid://bnyenue78c6u2" path="res://world_environment.tscn" id="1_bbcfy"]
 [ext_resource type="Texture2D" uid="uid://5yilpmr5knkg" path="res://models/textures/moon_diffuse.png" id="1_dhvcg"]
-[ext_resource type="Shader" path="res://shaders/space_sky.gdshader" id="1_enxod"]
 [ext_resource type="PackedScene" uid="uid://bmij4p4w6dm17" path="res://models/moon_inverse_cylinder.glb" id="2_0yagk"]
 [ext_resource type="PackedScene" uid="uid://cwpo78f50wouh" path="res://player.tscn" id="2_m1uo0"]
 [ext_resource type="PackedScene" uid="uid://cd4bjhn0qultm" path="res://small_health.tscn" id="4_eh8b4"]
@@ -9,24 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://d4nldq1x7vpsk" path="res://enemy.tscn" id="7_gah88"]
 [ext_resource type="PackedScene" uid="uid://bwntc06mnh4fu" path="res://ammo_box.tscn" id="8_exxhk"]
 [ext_resource type="PackedScene" uid="uid://bisl4r4uuvwfy" path="res://flare.tscn" id="9_rdy4n"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_go17a"]
-shader = ExtResource("1_enxod")
-shader_parameter/sky_color = Color(0, 0, 0, 1)
-shader_parameter/star_base_color = Color(1, 1, 1, 1)
-shader_parameter/star_hue_offset = 0.6
-shader_parameter/star_intensity = 0.08
-shader_parameter/layer_scale = 15.0
-shader_parameter/layer_scale_step = 5.0
-shader_parameter/layers_count = 1
-
-[sub_resource type="Sky" id="Sky_jf7ng"]
-sky_material = SubResource("ShaderMaterial_go17a")
-
-[sub_resource type="Environment" id="Environment_iif2h"]
-background_mode = 2
-sky = SubResource("Sky_jf7ng")
-ambient_light_color = Color(1, 1, 1, 1)
+[ext_resource type="PackedScene" uid="uid://dfy5vlq8ib43q" path="res://ship_crash.tscn" id="10_4wkcf"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_buyoq"]
 vertices = PackedVector3Array(-43.25, 0.5, 24.5, -38.5, 0.5, 31.5, -31.5, 0.5, 38.5, -49.5, 0.5, -4.75, -49.5, 0.5, 4.75, -47.5, 0.5, 14.75, 24.5, 0.5, 43.25, 31.5, 0.5, 38.5, 38.5, 0.5, 31.5, 43.25, 0.5, -24.5, 38.5, 0.5, -31.5, 31.5, 0.5, -38.5, -24.5, 0.5, -43.25, -31.5, 0.5, -38.5, -38.5, 0.5, -31.5, -24.5, 0.5, 43.25, -14.75, 0.5, 47.5, -4.75, 0.5, 49.5, 4.75, 0.5, 49.5, 43.25, 0.5, 24.5, 47.5, 0.5, 14.75, 14.75, 0.5, 47.5, 24.5, 0.5, -43.25, 14.75, 0.5, -47.5, 4.75, 0.5, -49.5, -4.75, 0.5, -49.5, -43.25, 0.5, -24.5, -47.5, 0.5, -14.75, -14.75, 0.5, -47.5, 49.5, 0.5, 4.75, 49.5, 0.5, -4.75, 47.5, 0.5, -14.75)
@@ -71,14 +54,7 @@ data = PackedVector3Array(0.0975, 0.05, 0.4904, 0, 0.05, 0.5, 0, 0.03, 0.5, 0.09
 
 [node name="Main" type="Node3D"]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_iif2h")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.977574, 3.4531e-09, -0.210591, 0.210591, -4.23904e-08, 0.977574, -5.55139e-09, -1, -4.2167e-08, -400, 238, 0)
-light_energy = 0.012
-directional_shadow_mode = 0
-sky_mode = 1
+[node name="WorldEnvironment" parent="." instance=ExtResource("1_bbcfy")]
 
 [node name="MoonInverseCylinder" parent="." instance=ExtResource("2_0yagk")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, -56.2947, 0)
@@ -147,3 +123,6 @@ amount = 6
 
 [node name="Flare" parent="." instance=ExtResource("9_rdy4n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.18943, 0.25, 1.93578)
+
+[node name="ShipCrash" parent="." instance=ExtResource("10_4wkcf")]
+transform = Transform3D(0.98446, 0, -0.175607, 0, 1, 0, 0.175607, 0, 0.98446, -11.7952, 3.55742, -40.5379)
