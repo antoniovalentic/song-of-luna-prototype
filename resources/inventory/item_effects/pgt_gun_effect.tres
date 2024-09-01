@@ -7,6 +7,6 @@
 script = ExtResource("1_8ctfd")
 weapon_type = 1
 ammo_type = ExtResource("1_51by7")
-damage = 20.0
+damage = 25.0
 mag_amount = 6
 mag_capacity = 6

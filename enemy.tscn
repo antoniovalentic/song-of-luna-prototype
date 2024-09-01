@@ -71,6 +71,8 @@ MIN_SLEEP = 0.0
 MAX_SLEEP = 10.0
 MAX_SPEED = 4.0
 
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
 [node name="ParticleRoot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 

@@ -24,6 +24,8 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var flame_particles: CPUParticles3D = $ParticleRoot/FlameParticles
 @onready var blood_particles: CPUParticles3D = $ParticleRoot/BloodParticles
 
+@onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
+
 var is_fake_dead: bool = false
 var is_burning: bool = false
 var player: Player = null
@@ -36,16 +38,42 @@ func _ready():
     hurt_box.damage_recieved.connect(_on_damage_recieved)
     hurt_box.flare_recieved.connect(_on_flare_recieved)
 
+    # These values need to be adjusted for the actor's speed
+    # and the navigation layout.
+    navigation_agent.path_desired_distance = 0.5
+    navigation_agent.target_desired_distance = 0.5
+
+    # Make sure to not await during _ready.
+    call_deferred("actor_setup")
+
+func actor_setup():
+    # Wait for the first physics frame so the NavigationServer can sync.
+    await get_tree().physics_frame
+
+    # Now that the navigation map is no longer empty, set the movement target.
+    set_movement_target(player.global_position)
+
+func set_movement_target(movement_target: Vector3):
+    navigation_agent.set_target_position(movement_target)
+
 func _physics_process(delta: float):
     # Gravity
     if not is_on_floor():
         velocity.y -= gravity * delta
     
+    if navigation_agent.is_navigation_finished():
+        return
+    
     if not is_fake_dead and player != null:
-        var velocity_dir: Vector3 = global_position.direction_to(player.global_position)
+        """var velocity_dir: Vector3 = global_position.direction_to(player.global_position)
+        move_and_collide(velocity_dir * speed * delta)"""
+        set_movement_target(player.global_position)
         look_at(player.global_position)
         rotate_y(deg_to_rad(90))
-        move_and_collide(velocity_dir * speed * delta)
+        var current_agent_position: Vector3 = global_position
+        var next_path_position: Vector3 = navigation_agent.get_next_path_position()
+        velocity = current_agent_position.direction_to(next_path_position) * speed
+        move_and_slide()
 
 func real_death():
     if is_fake_dead:
@@ -65,8 +93,11 @@ func fake_death():
         var tween: Tween = get_tree().create_tween().bind_node(self)
         tween.tween_property(self, "rotation:x", deg_to_rad(90.0), 0.35).as_relative().set_trans(Tween.TRANS_SINE)
 
-        fake_death_timer.wait_time = randf_range(MIN_SLEEP, MAX_SLEEP)
-        fake_death_timer.start()
+        if not is_burning:
+            fake_death_timer.wait_time = randf_range(MIN_SLEEP, MAX_SLEEP)
+            fake_death_timer.start()
+        else:
+            start_real_death_timer()
 
 func damage_enemy(damage: float):
     HEALTH -= damage
@@ -84,12 +115,13 @@ func _on_flare_recieved():
     if not is_burning:
         is_burning = true
         flame_particles.emitting = true
-        
         start_real_death_timer()
+        if is_fake_dead:
+            fake_death_timer.stop()
 
 func _on_fake_timer_timeout():
     if is_burning:
-        start_real_death_timer()
+        real_death()
     elif is_fake_dead:
         is_fake_dead = false
         HEALTH = MAX_HEALTH / 2.0
