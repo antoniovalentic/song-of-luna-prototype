@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="ItemEffectFlare" load_steps=2 format=3 uid="uid://df0qxcy7skpbx"]
+
+[ext_resource type="Script" path="res://resources/inventory/item_effect_flare.gd" id="2_asc4w"]
+
+[resource]
+script = ExtResource("2_asc4w")

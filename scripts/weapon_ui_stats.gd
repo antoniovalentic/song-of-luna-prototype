@@ -10,6 +10,7 @@ func _ready() -> void:
     SignalBus.ammo_count_updated.connect(_on_ammo_count_updated)
     SignalBus.equiped_item.connect(_on_equiped_item)
     SignalBus.unequiped_item.connect(_on_equiped_item)
+    SignalBus.drop_item.connect(_on_drop_item)
 
 func _on_equiped_item(slot: InvSlot):
     if slot.item.effect != null and slot.item.effect is ItemEffectWeapon and slot.item.effect.weapon_type == ItemEffectWeapon.WeaponType.RANGED:
@@ -19,3 +20,7 @@ func _on_equiped_item(slot: InvSlot):
 
 func _on_ammo_count_updated(capacity: int, count: int):
     magazine_label.text = FORMAT_LABEL_TEXT % [count, capacity]
+
+func _on_drop_item(slot: InvSlot, _amount: int):
+    if slot.item.effect != null and slot.item.effect is ItemEffectWeapon and slot.item.effect.weapon_type == ItemEffectWeapon.WeaponType.RANGED:
+        visible = false

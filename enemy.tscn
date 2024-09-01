@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://d4nldq1x7vpsk"]
+[gd_scene load_steps=13 format=3 uid="uid://d4nldq1x7vpsk"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_6ryrt"]
 [ext_resource type="Texture2D" uid="uid://be0yps2d366ic" path="res://sprites/flame-sprite-1.png" id="2_1cfv5"]
@@ -17,6 +17,20 @@ particles_anim_loop = false
 [sub_resource type="QuadMesh" id="QuadMesh_awirk"]
 material = SubResource("StandardMaterial3D_ia70v")
 size = Vector2(0.1, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x2jfy"]
+albedo_color = Color(1, 0.219608, 0, 1)
+emission_enabled = true
+emission = Color(1, 0.337255, 0, 1)
+emission_energy_multiplier = 5.0
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_25kys"]
+material = SubResource("StandardMaterial3D_x2jfy")
+size = Vector2(0.025, 0.025)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wm38r"]
 
@@ -50,6 +64,16 @@ mesh = SubResource("QuadMesh_awirk")
 emission_shape = 1
 emission_sphere_radius = 0.75
 gravity = Vector3(0, 3, 0)
+
+[node name="FlameParticles" type="CPUParticles3D" parent="ParticleRoot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.173477, 0)
+emitting = false
+amount = 1000
+lifetime_randomness = 0.5
+mesh = SubResource("QuadMesh_25kys")
+emission_shape = 1
+emission_sphere_radius = 0.5
+gravity = Vector3(0, 9.8, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

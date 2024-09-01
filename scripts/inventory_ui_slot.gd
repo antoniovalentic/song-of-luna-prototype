@@ -27,12 +27,13 @@ func _gui_input(event):
 			if self.slot_data.item.item_type == InvItem.ItemType.WEAPON:
 				SignalBus.equiped_item.emit(self.slot_data)
 			elif self.slot_data.item.item_type == InvItem.ItemType.CONSUMABLE:
-				# TODO - consume item
-				pass
+				self.slot_data.item.effect.activate(self.slot_data.item)
 	if event is InputEventMouseButton and self.type == SlotType.EQUIPMENT and event.double_click:
 		# Remove equiped item
 		if self.slot_data.item.item_type == InvItem.ItemType.WEAPON:
 			SignalBus.unequiped_item.emit(self.slot_data)
+	
+	update_data()
 	
 
 func update(slot: InvSlot):

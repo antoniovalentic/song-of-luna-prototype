@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://c4skaw306j3u5"]
+[gd_scene load_steps=23 format=3 uid="uid://c4skaw306j3u5"]
 
 [ext_resource type="Texture2D" uid="uid://5yilpmr5knkg" path="res://models/textures/moon_diffuse.png" id="1_dhvcg"]
 [ext_resource type="Shader" path="res://shaders/space_sky.gdshader" id="1_enxod"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://crp46hafgqcwo" path="res://models/pyramid.glb" id="5_o1km6"]
 [ext_resource type="PackedScene" uid="uid://d4nldq1x7vpsk" path="res://enemy.tscn" id="7_gah88"]
 [ext_resource type="PackedScene" uid="uid://bwntc06mnh4fu" path="res://ammo_box.tscn" id="8_exxhk"]
+[ext_resource type="PackedScene" uid="uid://bisl4r4uuvwfy" path="res://flare.tscn" id="9_rdy4n"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_go17a"]
 shader = ExtResource("1_enxod")
@@ -135,3 +136,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.42251, 0, 5.75936)
 [node name="Ammo2" parent="." instance=ExtResource("8_exxhk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.79207, 0, 11.5417)
 amount = 6
+
+[node name="Flare" parent="." instance=ExtResource("9_rdy4n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.52755, 0.25, 4.34593)

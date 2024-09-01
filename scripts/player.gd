@@ -9,6 +9,7 @@ class_name Player
 @onready var attack_raycast: RayCast3D = %Camera/AttackRayCast
 @onready var weapon_node: Node3D = %Camera/WeaponNode
 @onready var drop_zone: Node3D = %DropZone
+@onready var hit_box: PlayerHitBox = %Camera/HitBox
 
 @onready var impact_particles: PackedScene = preload("res://impact_particles.tscn")
 
@@ -48,6 +49,7 @@ func _ready():
 	SignalBus.drop_item.connect(_on_drop_item)
 	SignalBus.weapon_shot.connect(_on_weapon_shot)
 	SignalBus.reload_done.connect(_on_reload_done)
+	SignalBus.item_consumed.connect(_on_item_consumed)
 
 	current_stamina = MAX_STAMINA
 
@@ -149,17 +151,39 @@ func _on_drop_item(slot: InvSlot, amount: int):
 		CURRENT_LEVEL_SCENE.add_child(item_scene)
 		INVENTORY.remove(slot.item, slot.amount)
 
-func _on_weapon_shot(item: InvItem, _weapon_type: ItemEffectWeapon.WeaponType, damage: float):
+func _on_weapon_shot(item: InvItem, weapon_type: ItemEffectWeapon.WeaponType, damage: float):
 	if item.item_type == InvItem.ItemType.WEAPON:
-		var collision_point: Vector3 = attack_raycast.get_collision_point()
-		var impact_instance: Node3D = impact_particles.instantiate()
-		impact_instance.position = collision_point
-		impact_instance.rotation.y -= deg_to_rad(180)
-		CURRENT_LEVEL_SCENE.add_child(impact_instance)
+		if weapon_type == ItemEffectWeapon.WeaponType.MEELE:
+			# Flare damage
+			if item.effect != null and item.effect is ItemEffectFlare:
+				print_debug(item.name)
+				if hit_box.enemies_in_range.size() > 0:
+					var flare_collider: Object = interact_raycast.get_collider()
+					if flare_collider is EnemyHurtBox:
+						flare_collider.recieve_flare()
+						
+						# Reduce flare in inventory
+						var item_slots: Array[InvSlot] = INVENTORY.slots.filter(func(slot): return slot.item != null)
+						if !item_slots.is_empty():
+							for i in item_slots.size():
+								var item_slot: InvSlot = item_slots[i]
+								if item_slot.item == item:
+									item_slot.amount -= 1
+									if item_slot.amount < 1:
+										INVENTORY.equip(INVENTORY.default_equip_item.item)
+									SignalBus.slots_updated.emit()
+									break
 
-		var attack_collider: Object = attack_raycast.get_collider()
-		if attack_collider is EnemyHurtBox:
-			attack_collider.recieve_damage(damage)
+		elif weapon_type == ItemEffectWeapon.WeaponType.RANGED:
+			var collision_point: Vector3 = attack_raycast.get_collision_point()
+			var impact_instance: Node3D = impact_particles.instantiate()
+			impact_instance.position = collision_point
+			impact_instance.rotation.y -= deg_to_rad(180)
+			CURRENT_LEVEL_SCENE.add_child(impact_instance)
+
+			var attack_collider: Object = attack_raycast.get_collider()
+			if attack_collider is EnemyHurtBox:
+				attack_collider.recieve_damage(damage)
 
 func _on_reload_done():
 	var equiped_item: InvItem = INVENTORY.equiped_item.item
@@ -176,3 +200,14 @@ func _on_reload_done():
 					item_slot.amount = ammo_remaining
 					SignalBus.slots_updated.emit()
 					break
+
+
+func _on_item_consumed(item: InvItem, amount: int):
+	var item_slots: Array[InvSlot] = INVENTORY.slots.filter(func(slot): return slot.item != null)
+	if !item_slots.is_empty():
+		for i in item_slots.size():
+			var item_slot: InvSlot = item_slots[i]
+			if item_slot.item == item:
+				item_slot.amount -= 1
+				SignalBus.slots_updated.emit()
+				break

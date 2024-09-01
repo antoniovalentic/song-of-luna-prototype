@@ -9,12 +9,11 @@ class_name Inventory
 
 func equip(item: InvItem):
     if item.item_type == InvItem.ItemType.WEAPON:
-        # First insert equiped item back in inventory
-        #insert(equiped_item.item, 1)
-
-        # Remove equiped item from inventory
-        #remove(item, 1)
-
+        if equiped_item.item != null and Global.player_instance != null:
+            Global.player_instance._on_item_unequip(equiped_item)
+            equiped_item.item = default_equip_item.item
+        #if equiped_item.item != null and equiped_item.item != default_equip_item.item:
+            #unequip(equiped_item.item)
         # Set new equiped item
         equiped_item.item = item
         SignalBus.slots_updated.emit()
@@ -38,6 +37,9 @@ func insert(item: InvItem, amount: int):
     SignalBus.slots_updated.emit()
 
 func remove(item: InvItem, amount: int):
+    # Check if item equiped
+    if equiped_item.item == item:
+        unequip(item)
     # Array of slots that contain the item
     var item_slots: Array[InvSlot] = slots.filter(func(slot): return slot.item == item)
     if !item_slots.is_empty():

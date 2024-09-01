@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="ItemEffectHealth" load_steps=2 format=3 uid="uid://dhh64lf7ti7n"]
+
+[ext_resource type="Script" path="res://resources/inventory/item_effect_health.gd" id="1_7ojbt"]
+
+[resource]
+script = ExtResource("1_7ojbt")
+amount = 20.0

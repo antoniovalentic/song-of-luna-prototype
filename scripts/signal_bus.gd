@@ -20,7 +20,9 @@ signal drop_item(slot: InvSlot, amount: int)
 # Item signals
 signal weapon_shot(item: InvItem, weapon_type: ItemEffectWeapon.WeaponType, damage: float)
 signal ammo_count_updated(capacity: int, count: int)
-signal heal_player(amount: float)
+signal heal_player(item: InvItem, amount: float)
+signal damage_player(amount: float)
+signal item_consumed(item: InvItem, amount: int)
 
 func _ready():
 	pass

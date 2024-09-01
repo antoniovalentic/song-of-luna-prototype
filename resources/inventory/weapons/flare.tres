@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="InvItem" load_steps=4 format=3 uid="uid://duihxrxpjxq43"]
+
+[ext_resource type="Resource" uid="uid://df0qxcy7skpbx" path="res://resources/inventory/item_effects/flare_effect.tres" id="1_55x1a"]
+[ext_resource type="Script" path="res://resources/inventory/inventory_item.gd" id="1_ocyw8"]
+[ext_resource type="Texture2D" uid="uid://dmfe8leclq8ym" path="res://sprites/flare-sprite.png" id="2_8a8v0"]
+
+[resource]
+script = ExtResource("1_ocyw8")
+name = "Flare"
+description = "Flare for burning enemies"
+item_type = 2
+max_stack = 5
+is_usable = true
+ui_sprite = ExtResource("2_8a8v0")
+scene_path = "res://flare.tscn"
+effect = ExtResource("1_55x1a")

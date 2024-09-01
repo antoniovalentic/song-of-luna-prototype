@@ -8,7 +8,7 @@ void vertex() {
     float x = VERTEX.x;
     float y = VERTEX.y;
     float z = VERTEX.z;
-    
+
     VERTEX.x += cos(y * speed) * sin(z * speed) * morph_amount;
     VERTEX.y += cos(x * speed) * sin(z * speed) * morph_amount;
     VERTEX.z += cos(x * speed) * sin(y * speed) * morph_amount;
