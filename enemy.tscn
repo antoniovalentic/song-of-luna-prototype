@@ -98,5 +98,8 @@ shape = SubResource("CapsuleShape3D_uphgo")
 
 [node name="RealDeathTimer" type="Timer" parent="."]
 
+[node name="SpeedRecoveryTimer" type="Timer" parent="."]
+
 [connection signal="timeout" from="FakeDeathTimer" to="." method="_on_fake_timer_timeout"]
 [connection signal="timeout" from="RealDeathTimer" to="." method="_on_real_timer_timeout"]
+[connection signal="timeout" from="SpeedRecoveryTimer" to="." method="_on_speed_recovery_timer_timeout"]

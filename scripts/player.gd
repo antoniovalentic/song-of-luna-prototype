@@ -35,6 +35,7 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var current_speed: float = 0.0
 var current_stamina: float = 0.0
 var is_recovering_stamina: bool = false
+var is_meele_anim: bool = false
 
 func _ready():
 	# Register Player node in Global script
@@ -153,15 +154,16 @@ func _on_drop_item(slot: InvSlot, amount: int):
 
 func _on_weapon_shot(item: InvItem, weapon_type: ItemEffectWeapon.WeaponType, damage: float):
 	if item.item_type == InvItem.ItemType.WEAPON:
-		if weapon_type == ItemEffectWeapon.WeaponType.MEELE:
-			# Flare damage
-			if item.effect != null and item.effect is ItemEffectFlare:
-				print_debug(item.name)
-				if hit_box.enemies_in_range.size() > 0:
-					var flare_collider: Object = interact_raycast.get_collider()
-					if flare_collider is EnemyHurtBox:
-						flare_collider.recieve_flare()
-						
+		# Meele attack
+		if weapon_type == ItemEffectWeapon.WeaponType.MEELE and item.effect != null:
+			# Flare check
+			if item.effect is ItemEffectFlare and hit_box.enemies_in_range.size() > 0:
+				var meele_collider: Object = interact_raycast.get_collider()
+				if meele_collider is EnemyHurtBox:
+					# Flare check
+					if item.effect is ItemEffectFlare:
+						meele_collider.recieve_flare()
+					
 						# Reduce flare in inventory
 						var item_slots: Array[InvSlot] = INVENTORY.slots.filter(func(slot): return slot.item != null)
 						if !item_slots.is_empty():
@@ -173,7 +175,24 @@ func _on_weapon_shot(item: InvItem, weapon_type: ItemEffectWeapon.WeaponType, da
 										INVENTORY.equip(INVENTORY.default_equip_item.item)
 									SignalBus.slots_updated.emit()
 									break
-
+			# Meele animation
+			elif not is_meele_anim:
+				var callback := func():
+					is_meele_anim = false
+					if hit_box.enemies_in_range.size() > 0:
+						var meele_collider: Object = interact_raycast.get_collider()
+						if meele_collider is EnemyHurtBox and item.effect is ItemEffectWeapon:
+							meele_collider.recieve_damage(damage)
+				
+				is_meele_anim = true
+				var tween: Tween = get_tree().create_tween().bind_node(self)
+				tween.tween_property(weapon_node, "rotation", Vector3(deg_to_rad(-30.0), 0, deg_to_rad(20.0)), 0.40).as_relative().set_trans(Tween.TRANS_SINE)
+				tween.tween_property(weapon_node, "rotation", Vector3(deg_to_rad(120.0), 0, deg_to_rad(-20.0)), 0.15).as_relative().set_trans(Tween.TRANS_SINE)
+				tween.tween_property(weapon_node, "rotation", Vector3(deg_to_rad(-90.0), 0, 0), 0.30).as_relative().set_trans(Tween.TRANS_SINE)
+				tween.tween_callback(callback)
+			
+		
+		# Ranged attack
 		elif weapon_type == ItemEffectWeapon.WeaponType.RANGED:
 			var collision_point: Vector3 = attack_raycast.get_collision_point()
 			var impact_instance: Node3D = impact_particles.instantiate()
@@ -200,7 +219,6 @@ func _on_reload_done():
 					item_slot.amount = ammo_remaining
 					SignalBus.slots_updated.emit()
 					break
-
 
 func _on_item_consumed(item: InvItem, amount: int):
 	var item_slots: Array[InvSlot] = INVENTORY.slots.filter(func(slot): return slot.item != null)

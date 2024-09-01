@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ItemEffectWeapon" load_steps=2 format=3 uid="uid://o7wnx0n046ao"]
+
+[ext_resource type="Script" path="res://resources/inventory/item_effect_weapon.gd" id="1_ch1ep"]
+
+[resource]
+script = ExtResource("1_ch1ep")
+weapon_type = 0
+damage = 20.0
+mag_amount = 1
+mag_capacity = 1

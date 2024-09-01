@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="InvItem" load_steps=4 format=3 uid="uid://b08kfdpouay4x"]
+
+[ext_resource type="Script" path="res://resources/inventory/inventory_item.gd" id="1_cn2jf"]
+[ext_resource type="Resource" uid="uid://o7wnx0n046ao" path="res://resources/inventory/item_effects/crowbar_effect.tres" id="1_e1i63"]
+[ext_resource type="Texture2D" uid="uid://ca6iwkt7koqnc" path="res://sprites/crowbar-sprite.png" id="2_pypw8"]
+
+[resource]
+script = ExtResource("1_cn2jf")
+name = "Crowbar"
+description = "Crowbar for meele"
+item_type = 2
+max_stack = 1
+is_usable = true
+ui_sprite = ExtResource("2_pypw8")
+scene_path = "res://crowbar.tscn"
+effect = ExtResource("1_e1i63")

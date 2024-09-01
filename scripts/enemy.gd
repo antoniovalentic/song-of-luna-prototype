@@ -11,22 +11,26 @@ class_name Enemy
 @export_range(0, 60, 0.5) var MAX_SLEEP: float = 50.0
 
 @export_category("Movement")
-@export var SPEED: float = 5.0
+@export var MAX_SPEED: float = 5.0
+@export var HURT_SPEED: float = 2.0
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 @onready var hurt_box: EnemyHurtBox = $HurtBox
 @onready var fake_death_timer: Timer = $FakeDeathTimer
 @onready var real_death_timer: Timer = $RealDeathTimer
+@onready var speed_recovery_timer: Timer = $SpeedRecoveryTimer
 @onready var flame_particles: CPUParticles3D = $ParticleRoot/FlameParticles
 
 var is_fake_dead: bool = false
 var is_burning: bool = false
 var player: Player = null
+var speed: float = 0.0
 
 func _ready():
     self.is_fake_dead = false
     self.player = Global.player_instance
+    self.speed = MAX_SPEED
     hurt_box.damage_recieved.connect(_on_damage_recieved)
     hurt_box.flare_recieved.connect(_on_flare_recieved)
 
@@ -39,7 +43,7 @@ func _physics_process(delta: float):
         var velocity_dir: Vector3 = global_position.direction_to(player.global_position)
         look_at(player.global_position)
         rotate_y(deg_to_rad(90))
-        move_and_collide(velocity_dir * SPEED * delta)
+        move_and_collide(velocity_dir * speed * delta)
 
 func real_death():
     if is_fake_dead:
@@ -69,6 +73,8 @@ func damage_enemy(damage: float):
         fake_death()
 
 func _on_damage_recieved(damage: float):
+    speed = HURT_SPEED
+    speed_recovery_timer.start()
     damage_enemy(damage)
 
 func _on_flare_recieved():
@@ -94,3 +100,6 @@ func _on_real_timer_timeout():
     else:
         damage_enemy(MAX_HEALTH / 2.0)
         start_real_death_timer()
+
+func _on_speed_recovery_timer_timeout():
+    speed = MAX_SPEED
