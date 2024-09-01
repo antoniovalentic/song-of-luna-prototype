@@ -17,10 +17,12 @@ class_name Enemy
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 @onready var hurt_box: EnemyHurtBox = $HurtBox
+@onready var hit_box: Area3D = $HitBox
 @onready var fake_death_timer: Timer = $FakeDeathTimer
 @onready var real_death_timer: Timer = $RealDeathTimer
 @onready var speed_recovery_timer: Timer = $SpeedRecoveryTimer
 @onready var flame_particles: CPUParticles3D = $ParticleRoot/FlameParticles
+@onready var blood_particles: CPUParticles3D = $ParticleRoot/BloodParticles
 
 var is_fake_dead: bool = false
 var is_burning: bool = false
@@ -75,6 +77,7 @@ func damage_enemy(damage: float):
 func _on_damage_recieved(damage: float):
     speed = HURT_SPEED
     speed_recovery_timer.start()
+    blood_particles.restart()
     damage_enemy(damage)
 
 func _on_flare_recieved():

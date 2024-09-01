@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://c4skaw306j3u5"]
+[gd_scene load_steps=23 format=3 uid="uid://c4skaw306j3u5"]
 
 [ext_resource type="Texture2D" uid="uid://5yilpmr5knkg" path="res://models/textures/moon_diffuse.png" id="1_dhvcg"]
 [ext_resource type="Shader" path="res://shaders/space_sky.gdshader" id="1_enxod"]
@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://d4nldq1x7vpsk" path="res://enemy.tscn" id="7_gah88"]
 [ext_resource type="PackedScene" uid="uid://bwntc06mnh4fu" path="res://ammo_box.tscn" id="8_exxhk"]
 [ext_resource type="PackedScene" uid="uid://bisl4r4uuvwfy" path="res://flare.tscn" id="9_rdy4n"]
-[ext_resource type="PackedScene" uid="uid://rbmyi73pkjbj" path="res://crowbar.tscn" id="10_ewrer"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_go17a"]
 shader = ExtResource("1_enxod")
@@ -140,6 +139,3 @@ amount = 6
 
 [node name="Flare" parent="." instance=ExtResource("9_rdy4n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.52755, 0.25, 4.34593)
-
-[node name="Crowbar" parent="." instance=ExtResource("10_ewrer")]
-transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, -3.29858, 0, 3.87126)

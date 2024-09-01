@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://d4nldq1x7vpsk"]
+[gd_scene load_steps=16 format=3 uid="uid://d4nldq1x7vpsk"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_6ryrt"]
 [ext_resource type="Texture2D" uid="uid://be0yps2d366ic" path="res://sprites/flame-sprite-1.png" id="2_1cfv5"]
@@ -32,6 +32,20 @@ particles_anim_loop = false
 material = SubResource("StandardMaterial3D_x2jfy")
 size = Vector2(0.025, 0.025)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pixps"]
+albedo_color = Color(0.406137, 0.000113733, 0.406134, 1)
+emission_enabled = true
+emission = Color(0.497057, 0.000175437, 0.497053, 1)
+emission_energy_multiplier = 2.0
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_b8t5f"]
+material = SubResource("StandardMaterial3D_pixps")
+size = Vector2(0.025, 0.025)
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wm38r"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hi52d"]
@@ -46,10 +60,16 @@ material = SubResource("StandardMaterial3D_hi52d")
 radius = 0.55
 height = 2.1
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_chv4s"]
+size = Vector3(1.05, 1, 0.8)
+
 [node name="Enemy" type="CharacterBody3D"]
 script = ExtResource("1_6ryrt")
+HEALTH = 100.0
+MAX_HEALTH = 100.0
 MIN_SLEEP = 0.0
 MAX_SLEEP = 10.0
+MAX_SPEED = 4.0
 
 [node name="ParticleRoot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -75,6 +95,19 @@ emission_shape = 1
 emission_sphere_radius = 0.5
 gravity = Vector3(0, 9.8, 0)
 
+[node name="BloodParticles" type="CPUParticles3D" parent="ParticleRoot"]
+emitting = false
+amount = 300
+one_shot = true
+explosiveness = 0.8
+randomness = 1.0
+lifetime_randomness = 1.0
+mesh = SubResource("QuadMesh_b8t5f")
+emission_shape = 1
+emission_sphere_radius = 0.25
+spread = 90.0
+initial_velocity_max = 10.0
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_wm38r")
@@ -93,6 +126,13 @@ script = ExtResource("2_mx87f")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtBox"]
 shape = SubResource("CapsuleShape3D_uphgo")
+
+[node name="HitBox" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.629049, 1.08475, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0446777, 0, 0)
+shape = SubResource("BoxShape3D_chv4s")
 
 [node name="FakeDeathTimer" type="Timer" parent="."]
 

@@ -6,6 +6,7 @@ class_name Player
 
 @onready var interact_area: Area3D = %Camera/InteractArea
 @onready var interact_raycast: RayCast3D = %Camera/InteractArea/InteractRayCast
+@onready var meele_raycast: RayCast3D = %Camera/MeeleRayCast
 @onready var attack_raycast: RayCast3D = %Camera/AttackRayCast
 @onready var weapon_node: Node3D = %Camera/WeaponNode
 @onready var drop_zone: Node3D = %DropZone
@@ -36,6 +37,7 @@ var current_speed: float = 0.0
 var current_stamina: float = 0.0
 var is_recovering_stamina: bool = false
 var is_meele_anim: bool = false
+var is_recoil_anim: bool = false
 
 func _ready():
 	# Register Player node in Global script
@@ -158,11 +160,11 @@ func _on_weapon_shot(item: InvItem, weapon_type: ItemEffectWeapon.WeaponType, da
 		if weapon_type == ItemEffectWeapon.WeaponType.MEELE and item.effect != null:
 			# Flare check
 			if item.effect is ItemEffectFlare and hit_box.enemies_in_range.size() > 0:
-				var meele_collider: Object = interact_raycast.get_collider()
-				if meele_collider is EnemyHurtBox:
+				var meele_collider: Object = meele_raycast.get_collider()
+				if meele_collider is Enemy:
 					# Flare check
 					if item.effect is ItemEffectFlare:
-						meele_collider.recieve_flare()
+						meele_collider.hurt_box.recieve_flare()
 					
 						# Reduce flare in inventory
 						var item_slots: Array[InvSlot] = INVENTORY.slots.filter(func(slot): return slot.item != null)
@@ -177,32 +179,42 @@ func _on_weapon_shot(item: InvItem, weapon_type: ItemEffectWeapon.WeaponType, da
 									break
 			# Meele animation
 			elif not is_meele_anim:
-				var callback := func():
-					is_meele_anim = false
+				var hit_callback := func():
 					if hit_box.enemies_in_range.size() > 0:
-						var meele_collider: Object = interact_raycast.get_collider()
-						if meele_collider is EnemyHurtBox and item.effect is ItemEffectWeapon:
-							meele_collider.recieve_damage(damage)
+						var meele_collider: Object = meele_raycast.get_collider()
+						if meele_collider is Enemy and item.effect is ItemEffectWeapon:
+							meele_collider.hurt_box.recieve_damage(damage)
 				
 				is_meele_anim = true
-				var tween: Tween = get_tree().create_tween().bind_node(self)
+				var tween: Tween = get_tree().create_tween().bind_node(self).set_loops(1)
 				tween.tween_property(weapon_node, "rotation", Vector3(deg_to_rad(-30.0), 0, deg_to_rad(20.0)), 0.40).as_relative().set_trans(Tween.TRANS_SINE)
 				tween.tween_property(weapon_node, "rotation", Vector3(deg_to_rad(120.0), 0, deg_to_rad(-20.0)), 0.15).as_relative().set_trans(Tween.TRANS_SINE)
+				tween.tween_callback(hit_callback)
 				tween.tween_property(weapon_node, "rotation", Vector3(deg_to_rad(-90.0), 0, 0), 0.30).as_relative().set_trans(Tween.TRANS_SINE)
-				tween.tween_callback(callback)
+				tween.tween_callback(func(): is_meele_anim = false)
 			
 		
 		# Ranged attack
 		elif weapon_type == ItemEffectWeapon.WeaponType.RANGED:
-			var collision_point: Vector3 = attack_raycast.get_collision_point()
-			var impact_instance: Node3D = impact_particles.instantiate()
-			impact_instance.position = collision_point
-			impact_instance.rotation.y -= deg_to_rad(180)
-			CURRENT_LEVEL_SCENE.add_child(impact_instance)
+			if not is_recoil_anim:
+				is_recoil_anim = true
+				
+				var collision_point: Vector3 = attack_raycast.get_collision_point()
+				var impact_instance: Node3D = impact_particles.instantiate()
+				impact_instance.position = collision_point
+				impact_instance.rotation.y -= deg_to_rad(180)
+				CURRENT_LEVEL_SCENE.add_child(impact_instance)
 
-			var attack_collider: Object = attack_raycast.get_collider()
-			if attack_collider is EnemyHurtBox:
-				attack_collider.recieve_damage(damage)
+				var attack_collider: Object = attack_raycast.get_collider()
+				if attack_collider is Enemy:
+					attack_collider.hurt_box.recieve_damage(damage)
+					#attack_collider.recieve_damage(damage)
+
+				# Recoil animation
+				var tween: Tween = get_tree().create_tween().bind_node(self).set_loops(1)
+				tween.tween_property(weapon_node, "position", Vector3(0, 0, 0.5), 0.10).as_relative().set_trans(Tween.TRANS_SINE)
+				tween.tween_property(weapon_node, "position", Vector3(0, 0, -0.5), 0.30).as_relative().set_trans(Tween.TRANS_SINE)
+				tween.tween_callback(func(): is_recoil_anim = false)
 
 func _on_reload_done():
 	var equiped_item: InvItem = INVENTORY.equiped_item.item
