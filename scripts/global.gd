@@ -4,7 +4,6 @@ extends Node
 
 # Variables
 var player_instance: Player = null
-var game_paused: bool = false
 
 func _ready():
 	# Resolution scaling settings
@@ -15,11 +14,17 @@ func _ready():
 func set_player_reference(player: Player):
 	player_instance = player
 
+func get_pause_game() -> bool:
+	return get_tree().paused
 
-func toggle_pause_game():
-	if !game_paused:
-		game_paused = true
+func set_pause_game(value: bool):
+	get_tree().paused = value
+	if value:
 		SignalBus.game_paused.emit()
 	else:
-		game_paused = false
 		SignalBus.game_unpaused.emit()
+
+func load_scene(caller: Node, scene: PackedScene):
+	var scene_instance: Node3D = scene.instantiate()
+	get_tree().root.add_child(scene_instance)
+	caller.queue_free()
