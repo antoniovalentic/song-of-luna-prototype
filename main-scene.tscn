@@ -1,9 +1,10 @@
-[gd_scene load_steps=24 format=3 uid="uid://c4skaw306j3u5"]
+[gd_scene load_steps=25 format=3 uid="uid://c4skaw306j3u5"]
 
 [ext_resource type="Script" path="res://scripts/level_moon_surface.gd" id="1_1kkfo"]
 [ext_resource type="PackedScene" uid="uid://bnyenue78c6u2" path="res://world_environment.tscn" id="1_bbcfy"]
 [ext_resource type="Texture2D" uid="uid://5yilpmr5knkg" path="res://models/textures/moon_diffuse.png" id="1_dhvcg"]
 [ext_resource type="PackedScene" uid="uid://bmij4p4w6dm17" path="res://models/moon_inverse_cylinder.glb" id="2_0yagk"]
+[ext_resource type="PackedScene" uid="uid://draq8rm82hgog" path="res://pause_menu.tscn" id="2_j7fpa"]
 [ext_resource type="PackedScene" uid="uid://cwpo78f50wouh" path="res://player.tscn" id="2_m1uo0"]
 [ext_resource type="PackedScene" uid="uid://cd4bjhn0qultm" path="res://small_health.tscn" id="4_eh8b4"]
 [ext_resource type="PackedScene" uid="uid://crp46hafgqcwo" path="res://models/pyramid.glb" id="5_o1km6"]
@@ -56,6 +57,8 @@ data = PackedVector3Array(0.0975, 0.05, 0.4904, 0, 0.05, 0.5, 0, 0.03, 0.5, 0.09
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_1kkfo")
+
+[node name="PauseMenu" parent="." instance=ExtResource("2_j7fpa")]
 
 [node name="WorldEnvironment" parent="." instance=ExtResource("1_bbcfy")]
 

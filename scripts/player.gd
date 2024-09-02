@@ -38,6 +38,7 @@ var current_stamina: float = 0.0
 var is_recovering_stamina: bool = false
 var is_meele_anim: bool = false
 var is_recoil_anim: bool = false
+var is_dead: bool = false
 
 func _ready():
 	# Register Player node in Global script
@@ -53,17 +54,24 @@ func _ready():
 	SignalBus.weapon_shot.connect(_on_weapon_shot)
 	SignalBus.reload_done.connect(_on_reload_done)
 	SignalBus.item_consumed.connect(_on_item_consumed)
+	SignalBus.player_death.connect(_on_player_death)
 
 	current_stamina = MAX_STAMINA
 
 
 func _input(event: InputEvent):
+	if is_dead:
+		return
+
 	if event.is_action_pressed("interact_action"):
 		var interact_collider: Object = interact_raycast.get_collider()
 		if interact_collider is ItemScene:
 			interact_collider.collect_item()
 
 func _unhandled_input(event: InputEvent):
+	if is_dead:
+		return
+	
 	# Rotate camera
 	if event is InputEventMouseMotion:
 		pivot.rotate_y(-event.relative.x * LOOK_SENSITIVITY)
@@ -85,21 +93,14 @@ func _unhandled_input(event: InputEvent):
 					if item_slot.item == ammo_type:
 						SignalBus.reload_started.emit()
 						break
-				
-
-func _unhandled_key_input(event: InputEvent):
-	# Show mouse cursor on Esc press
-	if event.is_action_pressed("ui_cancel"):
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-
-
-func _process(_delta: float):
-	pass
 
 func _physics_process(delta: float):
 	# Gravity
 	if not is_on_floor():
 		velocity.y -= gravity * delta
+	
+	if is_dead:
+		return
 
 	# Jumping
 	if Input.is_action_just_pressed("jump") and is_on_floor():
@@ -241,3 +242,11 @@ func _on_item_consumed(item: InvItem, amount: int):
 				item_slot.amount -= 1
 				SignalBus.slots_updated.emit()
 				break
+
+func _on_player_death():
+	is_dead = true
+	var callback := func():
+		Global.load_scene(Global.get_current_scene(), Global.main_menu_scene)
+	
+	var tween: Tween = get_tree().create_tween().bind_node(self).set_loops(1)
+	tween.tween_callback(callback).set_delay(3)

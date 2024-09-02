@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://c8g2on3cpu6ge"]
+[gd_scene load_steps=7 format=3 uid="uid://c8g2on3cpu6ge"]
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_xgjwr"]
 [ext_resource type="Texture2D" uid="uid://p7c0hms5f57l" path="res://sprites/crosshair.png" id="2_dh3h7"]
@@ -9,6 +9,9 @@ bg_color = Color(0, 0, 0, 0.137255)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_thbfb"]
 bg_color = Color(0.707967, 0.707967, 0.707966, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_xbi7o"]
+font_size = 24
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -101,6 +104,27 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("3_65ka7")
+
+[node name="MessageLabel" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -113.0
+offset_top = -251.5
+offset_right = 113.0
+offset_bottom = -212.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(4, 4)
+pivot_offset = Vector2(113, 19)
+text = "DEAD"
+label_settings = SubResource("LabelSettings_xbi7o")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="timeout" from="ReloadBar/Timer" to="." method="_on_reload_timer_timeout"]
 [connection signal="timeout" from="StaminaBar/Timer" to="." method="_on_stamina_timer_timeout"]

@@ -146,7 +146,7 @@ func _on_speed_recovery_timer_timeout():
     speed = MAX_SPEED
 
 func _on_hit_recovery_timer_timeout():
-    if player_in_hit_range:
+    if player_in_hit_range and not is_fake_dead:
         SignalBus.damage_player.emit(DAMAGE)
         hit_recovery_timer.start()
     else:
@@ -164,7 +164,7 @@ func _on_detection_area_body_entered(body: Node3D):
 func _on_hit_box_body_entered(body: Node3D):
     if body is Player:
         player_in_hit_range = true
-        if not is_hit_recovering:
+        if not is_hit_recovering and not is_fake_dead:
             SignalBus.damage_player.emit(DAMAGE)
             hit_recovery_timer.start()
 

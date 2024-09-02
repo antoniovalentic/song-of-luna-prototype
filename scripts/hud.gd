@@ -6,16 +6,19 @@ extends Control
 @onready var reloadBar: ProgressBar = $ReloadBar
 @onready var reloadTimer: Timer = $ReloadBar/Timer
 @onready var hurt_texture: TextureRect = $HurtTexture
+@onready var message_label: Label = $MessageLabel
 
 var hide_stamina: bool = false
 
 func _ready():
     reloadBar.visible = false
+    message_label.text = ''
     SignalBus.player_speed_updated.connect(_speed_updated)
     SignalBus.reload_started.connect(_on_reload_started)
     SignalBus.game_paused.connect(_on_game_paused)
     SignalBus.game_unpaused.connect(_on_game_unpaused)
     SignalBus.player_health_updated.connect(_on_player_health_updated)
+    SignalBus.player_death.connect(_on_player_death)
 
 func _process(_delta: float):  
     if reloadBar.visible == true:
@@ -56,3 +59,6 @@ func _on_game_unpaused():
 func _on_player_health_updated(value: float, max_value: float):
     var percentage: float = abs(value/max_value - 1)
     hurt_texture.modulate = Color8(172, 50, 50, int(percentage * 255))
+
+func _on_player_death():
+    message_label.text = "DEATH"

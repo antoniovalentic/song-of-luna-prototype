@@ -25,6 +25,8 @@ func add(amount: float):
 func subtract(amount: float):
     value = clampf(value - amount, 0.0, max_value)
     update_ui_bar()
+    if value == 0.0:
+        SignalBus.player_death.emit()
 
 
 func _on_heal_player(item: InvItem, amount: float):
