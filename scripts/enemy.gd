@@ -30,6 +30,8 @@ var is_fake_dead: bool = false
 var is_burning: bool = false
 var player: Player = null
 var speed: float = 0.0
+var player_detected: bool = false
+var enemy_id: String = ''
 
 func _ready():
     self.is_fake_dead = false
@@ -61,7 +63,7 @@ func _physics_process(delta: float):
     if not is_on_floor():
         velocity.y -= gravity * delta
     
-    if navigation_agent.is_navigation_finished():
+    if navigation_agent.is_navigation_finished() or not player_detected:
         return
     
     if not is_fake_dead and player != null:
@@ -77,6 +79,7 @@ func _physics_process(delta: float):
 
 func real_death():
     if is_fake_dead:
+        SignalBus.enemy_killed.emit(enemy_id)
         self.queue_free()
     else:
         fake_death()
@@ -138,3 +141,11 @@ func _on_real_timer_timeout():
 
 func _on_speed_recovery_timer_timeout():
     speed = MAX_SPEED
+
+func _on_detection_area_body_exited(body: Node3D):
+    if body is Player:
+        player_detected = false
+
+func _on_detection_area_body_entered(body: Node3D):
+    if body is Player:
+        player_detected = true

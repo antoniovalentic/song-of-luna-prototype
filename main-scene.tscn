@@ -1,5 +1,6 @@
-[gd_scene load_steps=22 format=3 uid="uid://c4skaw306j3u5"]
+[gd_scene load_steps=24 format=3 uid="uid://c4skaw306j3u5"]
 
+[ext_resource type="Script" path="res://scripts/level_moon_surface.gd" id="1_1kkfo"]
 [ext_resource type="PackedScene" uid="uid://bnyenue78c6u2" path="res://world_environment.tscn" id="1_bbcfy"]
 [ext_resource type="Texture2D" uid="uid://5yilpmr5knkg" path="res://models/textures/moon_diffuse.png" id="1_dhvcg"]
 [ext_resource type="PackedScene" uid="uid://bmij4p4w6dm17" path="res://models/moon_inverse_cylinder.glb" id="2_0yagk"]
@@ -10,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bwntc06mnh4fu" path="res://ammo_box.tscn" id="8_exxhk"]
 [ext_resource type="PackedScene" uid="uid://bisl4r4uuvwfy" path="res://flare.tscn" id="9_rdy4n"]
 [ext_resource type="PackedScene" uid="uid://dfy5vlq8ib43q" path="res://ship_crash.tscn" id="10_4wkcf"]
+[ext_resource type="PackedScene" uid="uid://csv83vnoc2g0k" path="res://enemy_spawner.tscn" id="10_mlwqt"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_buyoq"]
 vertices = PackedVector3Array(-43.25, 0.5, 24.5, -38.5, 0.5, 31.5, -31.5, 0.5, 38.5, -49.5, 0.5, -4.75, -49.5, 0.5, 4.75, -47.5, 0.5, 14.75, 24.5, 0.5, 43.25, 31.5, 0.5, 38.5, 38.5, 0.5, 31.5, 43.25, 0.5, -24.5, 38.5, 0.5, -31.5, 31.5, 0.5, -38.5, -24.5, 0.5, -43.25, -31.5, 0.5, -38.5, -38.5, 0.5, -31.5, -24.5, 0.5, 43.25, -14.75, 0.5, 47.5, -4.75, 0.5, 49.5, 4.75, 0.5, 49.5, 43.25, 0.5, 24.5, 47.5, 0.5, 14.75, 14.75, 0.5, 47.5, 24.5, 0.5, -43.25, 14.75, 0.5, -47.5, 4.75, 0.5, -49.5, -4.75, 0.5, -49.5, -43.25, 0.5, -24.5, -47.5, 0.5, -14.75, -14.75, 0.5, -47.5, 49.5, 0.5, 4.75, 49.5, 0.5, -4.75, 47.5, 0.5, -14.75)
@@ -53,6 +55,7 @@ data = PackedVector3Array(0.0975, 0.05, 0.4904, 0, 0.05, 0.5, 0, 0.03, 0.5, 0.09
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_vlrd5"]
 
 [node name="Main" type="Node3D"]
+script = ExtResource("1_1kkfo")
 
 [node name="WorldEnvironment" parent="." instance=ExtResource("1_bbcfy")]
 
@@ -111,9 +114,6 @@ mesh = SubResource("CylinderMesh_yrcjo")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("CylinderShape3D_vlrd5")
 
-[node name="Enemy" parent="." instance=ExtResource("7_gah88")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.90417, 0, 8.87405)
-
 [node name="Ammo" parent="." instance=ExtResource("8_exxhk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.42251, 0, 5.75936)
 
@@ -126,3 +126,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.18943, 0.25, 1.93578)
 
 [node name="ShipCrash" parent="." instance=ExtResource("10_4wkcf")]
 transform = Transform3D(0.98446, 0, -0.175607, 0, 1, 0, 0.175607, 0, 0.98446, -11.7952, 3.55742, -40.5379)
+
+[node name="EnemySpawner" parent="." groups=["Enemy_Spawners"] instance=ExtResource("10_mlwqt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.0596, 3.05176e-05, 16.2824)
+enemy_id = "scene_1_enemy_1"
+enemy_scene = ExtResource("7_gah88")

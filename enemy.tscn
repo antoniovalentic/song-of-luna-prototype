@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://d4nldq1x7vpsk"]
+[gd_scene load_steps=17 format=3 uid="uid://d4nldq1x7vpsk"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_6ryrt"]
 [ext_resource type="Texture2D" uid="uid://be0yps2d366ic" path="res://sprites/flame-sprite-1.png" id="2_1cfv5"]
@@ -55,6 +55,9 @@ texture_filter = 0
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_homj5"]
 material = SubResource("StandardMaterial3D_hi52d")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_somp7"]
+radius = 10.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uphgo"]
 radius = 0.55
@@ -122,6 +125,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 visible = false
 mesh = SubResource("CapsuleMesh_homj5")
 
+[node name="DetectionArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
+shape = SubResource("SphereShape3D_somp7")
+
 [node name="HurtBox" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("2_mx87f")
@@ -142,6 +150,8 @@ shape = SubResource("BoxShape3D_chv4s")
 
 [node name="SpeedRecoveryTimer" type="Timer" parent="."]
 
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
 [connection signal="timeout" from="FakeDeathTimer" to="." method="_on_fake_timer_timeout"]
 [connection signal="timeout" from="RealDeathTimer" to="." method="_on_real_timer_timeout"]
 [connection signal="timeout" from="SpeedRecoveryTimer" to="." method="_on_speed_recovery_timer_timeout"]
