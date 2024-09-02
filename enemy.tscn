@@ -64,7 +64,7 @@ radius = 0.55
 height = 2.1
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_chv4s"]
-size = Vector3(1.05, 1, 0.8)
+size = Vector3(0.9, 1, 0.8)
 
 [node name="Enemy" type="CharacterBody3D"]
 script = ExtResource("1_6ryrt")
@@ -141,7 +141,7 @@ shape = SubResource("CapsuleShape3D_uphgo")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.629049, 1.08475, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0446777, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00487065, 0, 0)
 shape = SubResource("BoxShape3D_chv4s")
 
 [node name="FakeDeathTimer" type="Timer" parent="."]
@@ -150,8 +150,13 @@ shape = SubResource("BoxShape3D_chv4s")
 
 [node name="SpeedRecoveryTimer" type="Timer" parent="."]
 
+[node name="HitRecoveryTimer" type="Timer" parent="."]
+
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
+[connection signal="body_exited" from="HitBox" to="." method="_on_hit_box_body_exited"]
 [connection signal="timeout" from="FakeDeathTimer" to="." method="_on_fake_timer_timeout"]
 [connection signal="timeout" from="RealDeathTimer" to="." method="_on_real_timer_timeout"]
 [connection signal="timeout" from="SpeedRecoveryTimer" to="." method="_on_speed_recovery_timer_timeout"]
+[connection signal="timeout" from="HitRecoveryTimer" to="." method="_on_hit_recovery_timer_timeout"]

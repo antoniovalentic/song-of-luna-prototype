@@ -5,6 +5,7 @@ extends Control
 @onready var staminaTimer: Timer = $StaminaBar/Timer
 @onready var reloadBar: ProgressBar = $ReloadBar
 @onready var reloadTimer: Timer = $ReloadBar/Timer
+@onready var hurt_texture: TextureRect = $HurtTexture
 
 var hide_stamina: bool = false
 
@@ -14,6 +15,7 @@ func _ready():
     SignalBus.reload_started.connect(_on_reload_started)
     SignalBus.game_paused.connect(_on_game_paused)
     SignalBus.game_unpaused.connect(_on_game_unpaused)
+    SignalBus.player_health_updated.connect(_on_player_health_updated)
 
 func _process(_delta: float):  
     if reloadBar.visible == true:
@@ -50,3 +52,7 @@ func _on_game_paused():
 
 func _on_game_unpaused():
     visible = true
+
+func _on_player_health_updated(value: float, max_value: float):
+    var percentage: float = abs(value/max_value - 1)
+    hurt_texture.modulate = Color8(172, 50, 50, int(percentage * 255))

@@ -11,6 +11,7 @@ signal game_unpaused()
 # Player signals
 signal player_speed_updated(current_speed: float, current_stamina: float, max_stamina: float)
 signal enemy_killed(id: String)
+signal player_health_updated(value: float, max_value: float)
 
 # Inventory signals
 signal equiped_item(slot: InvSlot)

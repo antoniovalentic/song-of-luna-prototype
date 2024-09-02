@@ -21,6 +21,7 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var fake_death_timer: Timer = $FakeDeathTimer
 @onready var real_death_timer: Timer = $RealDeathTimer
 @onready var speed_recovery_timer: Timer = $SpeedRecoveryTimer
+@onready var hit_recovery_timer: Timer = $HitRecoveryTimer
 @onready var flame_particles: CPUParticles3D = $ParticleRoot/FlameParticles
 @onready var blood_particles: CPUParticles3D = $ParticleRoot/BloodParticles
 
@@ -31,6 +32,8 @@ var is_burning: bool = false
 var player: Player = null
 var speed: float = 0.0
 var player_detected: bool = false
+var player_in_hit_range: bool = false
+var is_hit_recovering: bool = false
 var enemy_id: String = ''
 
 func _ready():
@@ -142,6 +145,14 @@ func _on_real_timer_timeout():
 func _on_speed_recovery_timer_timeout():
     speed = MAX_SPEED
 
+func _on_hit_recovery_timer_timeout():
+    if player_in_hit_range:
+        SignalBus.damage_player.emit(DAMAGE)
+        hit_recovery_timer.start()
+    else:
+        is_hit_recovering = false
+
+
 func _on_detection_area_body_exited(body: Node3D):
     if body is Player:
         player_detected = false
@@ -149,3 +160,14 @@ func _on_detection_area_body_exited(body: Node3D):
 func _on_detection_area_body_entered(body: Node3D):
     if body is Player:
         player_detected = true
+
+func _on_hit_box_body_entered(body: Node3D):
+    if body is Player:
+        player_in_hit_range = true
+        if not is_hit_recovering:
+            SignalBus.damage_player.emit(DAMAGE)
+            hit_recovery_timer.start()
+
+func _on_hit_box_body_exited(body: Node3D):
+    if body is Player:
+        player_in_hit_range = false
