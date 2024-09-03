@@ -8,7 +8,8 @@ class_name ItemScene
 @onready var mesh_outline: MeshInstance3D = $MeshOutline
 @onready var player = Global.player_instance
 
-var player_in_range = false
+var player_in_range: bool = false
+var item_id: String = ''
 
 func _ready():
     add_to_group("Items")
@@ -38,4 +39,5 @@ func _area_exited_area(area: Area3D):
 func collect_item():
     if player_in_range:
         player.pick_up(item, amount)
+        SignalBus.item_picked.emit(item_id)
         self.queue_free()

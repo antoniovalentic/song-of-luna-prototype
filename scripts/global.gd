@@ -10,6 +10,7 @@ extends Node
 var player_instance: Player = null
 var current_scene: Node3D = null
 var dead_enemies: Array[String] = []
+var picked_up_items: Array[String] = []
 
 func _ready():
 	# Resolution scaling settings
@@ -17,7 +18,11 @@ func _ready():
 	#viewport.scaling_3d_mode = Viewport.SCALING_3D_MODE_BILINEAR
 
 	SignalBus.enemy_killed.connect(_on_enemy_killed)
+	SignalBus.item_picked.connect(_on_item_picked)
 
+func reset_states():
+	reset_dead_enemies()
+	reset_picked_items()
 
 func set_player_reference(player: Player):
 	player_instance = player
@@ -55,6 +60,18 @@ func check_enemy_id(id: String) -> bool:
 func reset_dead_enemies():
 	dead_enemies.clear()
 
-
 func _on_enemy_killed(id: String):
 	dead_enemies.append(id)
+
+
+func check_item_id(id: String) -> bool:
+	if id in picked_up_items:
+		return false
+	else:
+		return true
+
+func reset_picked_items():
+	picked_up_items.clear()
+
+func _on_item_picked(id: String):
+	picked_up_items.append(id)

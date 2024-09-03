@@ -5,7 +5,7 @@ extends Node3D
 func _ready():
     Global.set_current_scene(self)
     Global.set_pause_game(true)
-    Global.reset_dead_enemies()
+    Global.reset_states()
     Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
     pause_menu.resume_pressed.connect(_on_resume_button_pressed)
     pause_menu.quit_pressed.connect(_on_quit_button_pressed)
