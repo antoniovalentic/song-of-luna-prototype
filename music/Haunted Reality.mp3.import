@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bcjjowloookbv"
+path="res://.godot/imported/Haunted Reality.mp3-8b6121289d6e10534f292294b6f26050.mp3str"
+
+[deps]
+
+source_file="res://music/Haunted Reality.mp3"
+dest_files=["res://.godot/imported/Haunted Reality.mp3-8b6121289d6e10534f292294b6f26050.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
