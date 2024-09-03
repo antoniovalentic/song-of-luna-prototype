@@ -1,5 +1,8 @@
 extends Node
 
+# Game state signals
+signal game_end()
+
 # GUI signals
 signal gui_hidden()
 signal gui_shown()
@@ -20,6 +23,7 @@ signal unequiped_item(slot: InvSlot)
 signal slots_updated
 signal drop_item(slot: InvSlot, amount: int)
 signal item_picked(id: String)
+signal remove_item(item: InvItem)
 #signal hold_item(slot: InvSlot, og_ui_slot: InventorySlot)
 #signal release_item(ui_slot: InventorySlot)
 

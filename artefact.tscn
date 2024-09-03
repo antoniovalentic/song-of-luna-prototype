@@ -1,0 +1,113 @@
+[gd_scene load_steps=17 format=3 uid="uid://cg7cv3dgykop4"]
+
+[ext_resource type="Script" path="res://scripts/artefact.gd" id="1_7n0e2"]
+[ext_resource type="Resource" uid="uid://cikfxa5k6o1u6" path="res://resources/inventory/items/orb_red.tres" id="2_pe8bd"]
+[ext_resource type="Resource" uid="uid://budalf3utr53k" path="res://resources/inventory/items/orb_green.tres" id="3_d1yq1"]
+[ext_resource type="Resource" uid="uid://0w7dgyel5g7" path="res://resources/inventory/items/orb_blue.tres" id="4_qi4xj"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_rgdp4"]
+height = 1.25
+radius = 0.25
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lmkya"]
+albedo_color = Color(0.321775, 7.16667e-05, 0.322876, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_sw71p"]
+material = SubResource("StandardMaterial3D_lmkya")
+top_radius = 0.25
+bottom_radius = 0.25
+height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_px4a0"]
+albedo_color = Color(0.203567, 2.91191e-05, 0.204322, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_m27gc"]
+material = SubResource("StandardMaterial3D_px4a0")
+top_radius = 0.05
+bottom_radius = 0.0
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vvsls"]
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_iu1hq"]
+material = SubResource("StandardMaterial3D_vvsls")
+radius = 0.05
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lge87"]
+albedo_color = Color(0, 1, 0, 1)
+emission_enabled = true
+emission = Color(0, 1, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_inj7k"]
+material = SubResource("StandardMaterial3D_lge87")
+radius = 0.05
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ftwur"]
+albedo_color = Color(0, 0, 1, 1)
+emission_enabled = true
+emission = Color(0, 0, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_rg3qw"]
+material = SubResource("StandardMaterial3D_ftwur")
+radius = 0.05
+height = 0.1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qgjix"]
+size = Vector3(0.5, 1, 0.5)
+
+[node name="Artefact" type="Node3D"]
+script = ExtResource("1_7n0e2")
+red_orb_item = ExtResource("2_pe8bd")
+green_orb_item = ExtResource("3_d1yq1")
+blue_orb_item = ExtResource("4_qi4xj")
+
+[node name="InteractArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.554591, 0)
+shape = SubResource("CylinderShape3D_rgdp4")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("CylinderMesh_sw71p")
+
+[node name="Holder1" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0768426, 1.02895, -0.0944627)
+mesh = SubResource("CylinderMesh_m27gc")
+
+[node name="Ball1" type="MeshInstance3D" parent="StaticBody3D/Holder1"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0941514, 0)
+mesh = SubResource("SphereMesh_iu1hq")
+
+[node name="Holder2" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0768426, 1.02895, 0.0981774)
+mesh = SubResource("CylinderMesh_m27gc")
+
+[node name="Ball2" type="MeshInstance3D" parent="StaticBody3D/Holder2"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.094, 0)
+mesh = SubResource("SphereMesh_inj7k")
+
+[node name="Holder3" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.177787, 1.02895, -5.03361e-05)
+mesh = SubResource("CylinderMesh_m27gc")
+
+[node name="Ball3" type="MeshInstance3D" parent="StaticBody3D/Holder3"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.094, 0)
+mesh = SubResource("SphereMesh_rg3qw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_qgjix")
+
+[connection signal="area_entered" from="InteractArea" to="." method="_area_entered_area"]
+[connection signal="area_exited" from="InteractArea" to="." method="_area_exited_area"]

@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://b6mi13n3jhq1l"]
+
+[ext_resource type="Script" path="res://scripts/item_scene.gd" id="1_3dejh"]
+[ext_resource type="Resource" uid="uid://cikfxa5k6o1u6" path="res://resources/inventory/items/orb_red.tres" id="2_8q330"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cimcc"]
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_kocwr"]
+material = SubResource("StandardMaterial3D_cimcc")
+radius = 0.05
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5l2f7"]
+shading_mode = 0
+
+[sub_resource type="SphereMesh" id="SphereMesh_kojlq"]
+material = SubResource("StandardMaterial3D_5l2f7")
+flip_faces = true
+radius = 0.05
+height = 0.1
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_dc0vj"]
+radius = 0.1
+
+[node name="OrbRed" type="Area3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.1, 0)
+script = ExtResource("1_3dejh")
+item = ExtResource("2_8q330")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_kocwr")
+
+[node name="MeshOutline" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.04, 0, 0, 0, 1.04, 0, 0, 0, 1.04, 0, 0, 0)
+mesh = SubResource("SphereMesh_kojlq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_dc0vj")
+
+[connection signal="area_entered" from="." to="." method="_area_entered_area"]
+[connection signal="area_exited" from="." to="." method="_area_exited_area"]

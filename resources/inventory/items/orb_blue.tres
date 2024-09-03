@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="InvItem" load_steps=3 format=3 uid="uid://0w7dgyel5g7"]
+
+[ext_resource type="Script" path="res://resources/inventory/inventory_item.gd" id="1_sx1r4"]
+[ext_resource type="Texture2D" uid="uid://d1nvsl2sk4dj" path="res://sprites/orb-sprite.png" id="2_yq6xm"]
+
+[resource]
+script = ExtResource("1_sx1r4")
+name = "Blue Orb"
+description = ""
+item_type = 1
+max_stack = 1
+is_usable = true
+ui_sprite = ExtResource("2_yq6xm")
+scene_path = "res://orb_blue.tscn"

@@ -51,6 +51,7 @@ func _ready():
 	SignalBus.equiped_item.connect(_on_item_equip)
 	SignalBus.unequiped_item.connect(_on_item_unequip)
 	SignalBus.drop_item.connect(_on_drop_item)
+	SignalBus.remove_item.connect(_on_remove_item)
 	SignalBus.weapon_shot.connect(_on_weapon_shot)
 	SignalBus.reload_done.connect(_on_reload_done)
 	SignalBus.item_consumed.connect(_on_item_consumed)
@@ -99,7 +100,7 @@ func _physics_process(delta: float):
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 	
-	if is_dead:
+	if is_dead or Global.is_game_end:
 		return
 
 	# Jumping
@@ -154,6 +155,10 @@ func _on_drop_item(slot: InvSlot, amount: int):
 
 		CURRENT_LEVEL_SCENE.add_child(item_scene)
 		INVENTORY.remove(slot.item, slot.amount)
+
+func _on_remove_item(item: InvItem):
+	if item != null:
+		INVENTORY.remove(item, 99)
 
 func _on_weapon_shot(item: InvItem, weapon_type: ItemEffectWeapon.WeaponType, damage: float):
 	if item.item_type == InvItem.ItemType.WEAPON:

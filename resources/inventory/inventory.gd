@@ -9,7 +9,7 @@ class_name Inventory
 
 func equip(item: InvItem):
     if item.item_type == InvItem.ItemType.WEAPON:
-        if equiped_item.item != null and Global.player_instance != null:
+        if equiped_item.item != null and Global.get_player_reference() != null:
             Global.player_instance._on_item_unequip(equiped_item)
             equiped_item.item = default_equip_item.item
         #if equiped_item.item != null and equiped_item.item != default_equip_item.item:
@@ -49,3 +49,23 @@ func remove(item: InvItem, amount: int):
             item_slots[0].amount = 0
     
     SignalBus.slots_updated.emit()
+
+func check_item(item: InvItem) -> bool:
+    if item == null:
+        return false
+    
+    var item_slots: Array[InvSlot] = slots.filter(func(slot): return slot.item == item)
+    if !item_slots.is_empty():
+        return true
+    else:
+       return false
+
+func check_item_name(name: String) -> bool:
+    if name == null:
+        return false
+    
+    var item_slots: Array[InvSlot] = slots.filter(func(slot): return slot.item.name == name)
+    if !item_slots.is_empty():
+        return true
+    else:
+       return false

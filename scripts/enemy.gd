@@ -38,7 +38,7 @@ var enemy_id: String = ''
 
 func _ready():
     self.is_fake_dead = false
-    self.player = Global.player_instance
+    self.player = Global.get_player_reference()
     self.speed = MAX_SPEED
     hurt_box.damage_recieved.connect(_on_damage_recieved)
     hurt_box.flare_recieved.connect(_on_flare_recieved)

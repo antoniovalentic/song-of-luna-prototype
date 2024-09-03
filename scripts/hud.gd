@@ -1,6 +1,5 @@
 extends Control
 
-@onready var player = Global.player_instance
 @onready var staminaBar: ProgressBar = $StaminaBar
 @onready var staminaTimer: Timer = $StaminaBar/Timer
 @onready var reloadBar: ProgressBar = $ReloadBar
@@ -9,6 +8,7 @@ extends Control
 @onready var message_label: Label = $MessageLabel
 
 var hide_stamina: bool = false
+var player: Player = null
 
 func _ready():
     reloadBar.visible = false
@@ -19,6 +19,7 @@ func _ready():
     SignalBus.game_unpaused.connect(_on_game_unpaused)
     SignalBus.player_health_updated.connect(_on_player_health_updated)
     SignalBus.player_death.connect(_on_player_death)
+    player = Global.get_player_reference()
 
 func _process(_delta: float):  
     if reloadBar.visible == true:

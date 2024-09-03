@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="InvItem" load_steps=3 format=3 uid="uid://budalf3utr53k"]
+
+[ext_resource type="Script" path="res://resources/inventory/inventory_item.gd" id="1_opexp"]
+[ext_resource type="Texture2D" uid="uid://d1nvsl2sk4dj" path="res://sprites/orb-sprite.png" id="2_wxcxs"]
+
+[resource]
+script = ExtResource("1_opexp")
+name = "Green Orb"
+description = ""
+item_type = 1
+max_stack = 1
+is_usable = true
+ui_sprite = ExtResource("2_wxcxs")
+scene_path = "res://orb_green.tscn"

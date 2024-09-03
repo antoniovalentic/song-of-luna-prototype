@@ -6,7 +6,7 @@ class_name ItemScene
 
 @onready var mesh: MeshInstance3D = $Mesh
 @onready var mesh_outline: MeshInstance3D = $MeshOutline
-@onready var player = Global.player_instance
+@onready var player = Global.get_player_reference()
 
 var player_in_range: bool = false
 var item_id: String = ''

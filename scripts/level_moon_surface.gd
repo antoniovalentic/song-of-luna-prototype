@@ -1,9 +1,13 @@
 extends Node3D
 
+@onready var eye: Node3D = $Eye
 @onready var pause_menu: PauseMenu = $PauseMenu
 
 func _ready():
     Global.set_current_scene(self)
+    eye.visible = false
+
+    SignalBus.game_end.connect(_on_game_end)
     pause_menu.resume_pressed.connect(_on_resume_button_pressed)
     pause_menu.quit_pressed.connect(_on_quit_button_pressed)
 
@@ -34,3 +38,5 @@ func _on_quit_button_pressed():
     # Load main menu scene
     Global.load_scene(self, Global.main_menu_scene)
 
+func _on_game_end():
+    eye.visible = true

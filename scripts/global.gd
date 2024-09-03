@@ -6,11 +6,16 @@ extends Node
 
 @onready var viewport: Viewport = get_viewport()
 
-# Variables
+# Game state variables
 var player_instance: Player = null
 var current_scene: Node3D = null
 var dead_enemies: Array[String] = []
 var picked_up_items: Array[String] = []
+var is_game_end: bool = false
+
+var has_red_orb: bool = false
+var has_green_orb: bool = false
+var has_blue_orb: bool = false
 
 func _ready():
 	# Resolution scaling settings
@@ -19,6 +24,7 @@ func _ready():
 
 	SignalBus.enemy_killed.connect(_on_enemy_killed)
 	SignalBus.item_picked.connect(_on_item_picked)
+	SignalBus.game_end.connect(_on_game_end)
 
 func reset_states():
 	reset_dead_enemies()
@@ -26,6 +32,10 @@ func reset_states():
 
 func set_player_reference(player: Player):
 	player_instance = player
+
+func get_player_reference() -> Player:
+	return player_instance
+
 
 func set_current_scene(scene: Node3D):
 	current_scene = scene
@@ -75,3 +85,13 @@ func reset_picked_items():
 
 func _on_item_picked(id: String):
 	picked_up_items.append(id)
+
+
+func _on_game_end():
+	is_game_end = true
+
+	var callback := func():
+		Global.load_scene(current_scene, main_menu_scene)
+	
+	var tween: Tween = get_tree().create_tween().bind_node(self).set_loops(1)
+	tween.tween_callback(callback).set_delay(5)

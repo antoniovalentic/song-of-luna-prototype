@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="InvItem" load_steps=3 format=3 uid="uid://dmga4rnvgm11i"]
+[gd_resource type="Resource" script_class="InvItem" load_steps=4 format=3 uid="uid://dmga4rnvgm11i"]
 
+[ext_resource type="Resource" uid="uid://c21chyl4otg1k" path="res://resources/inventory/item_effects/health_effect_big.tres" id="1_7tsyt"]
 [ext_resource type="Script" path="res://resources/inventory/inventory_item.gd" id="1_mknx7"]
 [ext_resource type="Texture2D" uid="uid://ce3dw5ntihkqv" path="res://sprites/health-big.png" id="2_rpx1o"]
 
@@ -9,6 +10,7 @@ name = "Health Big"
 description = "Restores 50% of health"
 item_type = 0
 max_stack = 1
-quantitiy = 1
 is_usable = true
 ui_sprite = ExtResource("2_rpx1o")
+scene_path = ""
+effect = ExtResource("1_7tsyt")

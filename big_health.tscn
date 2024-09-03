@@ -1,0 +1,43 @@
+[gd_scene load_steps=9 format=3 uid="uid://bv8oofwen61nc"]
+
+[ext_resource type="Script" path="res://scripts/item_scene.gd" id="1_bllro"]
+[ext_resource type="Resource" uid="uid://dmga4rnvgm11i" path="res://resources/inventory/items/health_big.tres" id="2_vfj56"]
+[ext_resource type="Texture2D" uid="uid://ce3dw5ntihkqv" path="res://sprites/health-big.png" id="3_2ruvc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jhw30"]
+albedo_texture = ExtResource("3_2ruvc")
+uv1_offset = Vector3(0, -0.25, 0)
+texture_filter = 0
+texture_repeat = false
+
+[sub_resource type="BoxMesh" id="BoxMesh_qmm6i"]
+material = SubResource("StandardMaterial3D_jhw30")
+size = Vector3(1, 0.5, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p5nsq"]
+shading_mode = 0
+
+[sub_resource type="BoxMesh" id="BoxMesh_ykhna"]
+material = SubResource("StandardMaterial3D_p5nsq")
+flip_faces = true
+size = Vector3(1, 0.5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_11typ"]
+size = Vector3(1, 0.5, 1)
+
+[node name="SmallHealth" type="Area3D"]
+script = ExtResource("1_bllro")
+item = ExtResource("2_vfj56")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_qmm6i")
+
+[node name="MeshOutline" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.04, 0, 0, 0, 1.04, 0, 0, 0, 1.04, 0, 0, 0)
+mesh = SubResource("BoxMesh_ykhna")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_11typ")
+
+[connection signal="area_entered" from="." to="." method="_area_entered_area"]
+[connection signal="area_exited" from="." to="." method="_area_exited_area"]
