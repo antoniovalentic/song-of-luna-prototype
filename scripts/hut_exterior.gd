@@ -13,7 +13,7 @@ func _ready():
 
 func _input(event: InputEvent):
 	if event.is_action_pressed("interact_action") and player_in_range and cylinder_outline.visible:
-		Global.load_scene(Global.get_current_scene(), Global.main_menu_scene)
+		Global.load_scene(Global.get_current_scene(), load_scene)
 
 
 func _area_entered_area(area: Area3D):

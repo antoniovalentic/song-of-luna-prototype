@@ -30,9 +30,6 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 @export_category("Inventory")
 @export var INVENTORY: Inventory
 
-@export_category("Level")
-@export var CURRENT_LEVEL_SCENE: Node3D
-
 var current_speed: float = 0.0
 var current_stamina: float = 0.0
 var is_recovering_stamina: bool = false
@@ -104,8 +101,8 @@ func _physics_process(delta: float):
 		return
 
 	# Jumping
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_FORCE
+	"""if Input.is_action_just_pressed("jump") and is_on_floor():
+		velocity.y = JUMP_FORCE"""
 	
 	var input_dir: Vector2 = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	var direction: Vector3 = (pivot.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -149,11 +146,11 @@ func _on_drop_item(slot: InvSlot, amount: int):
 		item_scene.amount = amount
 		
 		# Convert local positions
-		item_scene.position = CURRENT_LEVEL_SCENE.to_local(pivot.to_global(drop_zone.position))
+		item_scene.position = Global.get_current_scene().to_local(pivot.to_global(drop_zone.position))
 		item_scene.rotation = pivot.rotation
 		item_scene.rotation.y -= deg_to_rad(180)
 
-		CURRENT_LEVEL_SCENE.add_child(item_scene)
+		Global.get_current_scene().add_child(item_scene)
 		INVENTORY.remove(slot.item, slot.amount)
 
 func _on_remove_item(item: InvItem):
@@ -209,7 +206,7 @@ func _on_weapon_shot(item: InvItem, weapon_type: ItemEffectWeapon.WeaponType, da
 				var impact_instance: Node3D = impact_particles.instantiate()
 				impact_instance.position = collision_point
 				impact_instance.rotation.y -= deg_to_rad(180)
-				CURRENT_LEVEL_SCENE.add_child(impact_instance)
+				Global.get_current_scene().add_child(impact_instance)
 
 				var attack_collider: Object = attack_raycast.get_collider()
 				if attack_collider is Enemy:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://c4skaw306j3u5"]
+[gd_scene load_steps=28 format=3 uid="uid://c4skaw306j3u5"]
 
 [ext_resource type="Script" path="res://scripts/level_moon_surface.gd" id="1_1kkfo"]
 [ext_resource type="PackedScene" uid="uid://bnyenue78c6u2" path="res://world_environment.tscn" id="1_bbcfy"]
@@ -15,12 +15,9 @@
 [ext_resource type="PackedScene" uid="uid://csv83vnoc2g0k" path="res://enemy_spawner.tscn" id="10_mlwqt"]
 [ext_resource type="PackedScene" uid="uid://bui1mxrvbahgc" path="res://item_spawner.tscn" id="13_m7chm"]
 [ext_resource type="PackedScene" uid="uid://wpyleust17qq" path="res://hut_exterior.tscn" id="15_yr8eq"]
-[ext_resource type="PackedScene" uid="uid://6gpi8f0ub282" path="res://main_menu.tscn" id="16_yyboj"]
+[ext_resource type="PackedScene" uid="uid://chwwd2lb4w5bi" path="res://level_hut_interior.tscn" id="16_u3qnq"]
 [ext_resource type="PackedScene" uid="uid://cg7cv3dgykop4" path="res://artefact.tscn" id="17_ak4xu"]
 [ext_resource type="PackedScene" uid="uid://dtbk75byah2ay" path="res://eye.tscn" id="18_36qsu"]
-[ext_resource type="PackedScene" uid="uid://b6mi13n3jhq1l" path="res://orb_red.tscn" id="18_hjwnm"]
-[ext_resource type="PackedScene" uid="uid://dh46a75skhme6" path="res://orb_blue.tscn" id="18_qasmw"]
-[ext_resource type="PackedScene" uid="uid://cdc1e8q51namt" path="res://orb_green.tscn" id="20_fdbrh"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_buyoq"]
 vertices = PackedVector3Array(-43.25, 0.5, 24.5, -38.5, 0.5, 31.5, -31.5, 0.5, 38.5, -49.5, 0.5, -4.75, -49.5, 0.5, 4.75, -47.5, 0.5, 14.75, 24.5, 0.5, 43.25, 31.5, 0.5, 38.5, 38.5, 0.5, 31.5, 43.25, 0.5, -24.5, 38.5, 0.5, -31.5, 31.5, 0.5, -38.5, -24.5, 0.5, -43.25, -31.5, 0.5, -38.5, -38.5, 0.5, -31.5, -24.5, 0.5, 43.25, -14.75, 0.5, 47.5, -4.75, 0.5, 49.5, 4.75, 0.5, 49.5, 43.25, 0.5, 24.5, 47.5, 0.5, 14.75, 14.75, 0.5, 47.5, 24.5, 0.5, -43.25, 14.75, 0.5, -47.5, 4.75, 0.5, -49.5, -4.75, 0.5, -49.5, -43.25, 0.5, -24.5, -47.5, 0.5, -14.75, -14.75, 0.5, -47.5, 49.5, 0.5, 4.75, 49.5, 0.5, -4.75, 47.5, 0.5, -14.75)
@@ -85,9 +82,8 @@ transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, -56.2947, 0)
 [node name="Pyramid" parent="." instance=ExtResource("5_o1km6")]
 transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, -400, -7, 0)
 
-[node name="Player" parent="." node_paths=PackedStringArray("CURRENT_LEVEL_SCENE") instance=ExtResource("2_m1uo0")]
+[node name="Player" parent="." instance=ExtResource("2_m1uo0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.19277, 0, -4.0195)
-CURRENT_LEVEL_SCENE = NodePath("..")
 
 [node name="PitBottom" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -200, 0)
@@ -128,13 +124,13 @@ enemy_id = "scene_1_enemy_1"
 enemy_scene = ExtResource("7_gah88")
 
 [node name="FlareItemSpawner" parent="." groups=["Item_Spawners"] instance=ExtResource("13_m7chm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8325, 0.34344, 3.36927)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.17308, 0.34344, 1.71703)
 item_id = "main-scene-flare"
 item_scene = ExtResource("9_rdy4n")
 
 [node name="HutExterior" parent="." instance=ExtResource("15_yr8eq")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 31.1564, 3.05176e-05, 18.0902)
-load_scene = ExtResource("16_yyboj")
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 19.4942, 3.05176e-05, 16.6193)
+load_scene = ExtResource("16_u3qnq")
 
 [node name="Artefact" parent="." instance=ExtResource("17_ak4xu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.73851, 3.05176e-05, 0.0345783)
@@ -147,12 +143,3 @@ transform = Transform3D(-0.000136031, 7.75586e-11, -0.00199537, 0.00199537, -3.7
 light_energy = 64.0
 spot_range = 4096.0
 spot_angle = 1.5
-
-[node name="OrbBlue" parent="." instance=ExtResource("18_qasmw")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -2.47927, 0.100031, 1.39789)
-
-[node name="OrbGreen" parent="." instance=ExtResource("20_fdbrh")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -2.94944, 0.100031, 2.39726)
-
-[node name="OrbRed" parent="." instance=ExtResource("18_hjwnm")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -3.578, 0.100031, 1.35641)
