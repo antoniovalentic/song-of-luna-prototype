@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://c4skaw306j3u5"]
+[gd_scene load_steps=28 format=3 uid="uid://c4skaw306j3u5"]
 
 [ext_resource type="Script" path="res://scripts/level_moon_surface.gd" id="1_1kkfo"]
 [ext_resource type="PackedScene" uid="uid://bnyenue78c6u2" path="res://world_environment.tscn" id="1_bbcfy"]
@@ -14,6 +14,8 @@
 [ext_resource type="PackedScene" uid="uid://dfy5vlq8ib43q" path="res://ship_crash.tscn" id="10_4wkcf"]
 [ext_resource type="PackedScene" uid="uid://csv83vnoc2g0k" path="res://enemy_spawner.tscn" id="10_mlwqt"]
 [ext_resource type="PackedScene" uid="uid://bui1mxrvbahgc" path="res://item_spawner.tscn" id="13_m7chm"]
+[ext_resource type="PackedScene" uid="uid://wpyleust17qq" path="res://hut_exterior.tscn" id="15_yr8eq"]
+[ext_resource type="PackedScene" uid="uid://6gpi8f0ub282" path="res://main_menu.tscn" id="16_yyboj"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_buyoq"]
 vertices = PackedVector3Array(-43.25, 0.5, 24.5, -38.5, 0.5, 31.5, -31.5, 0.5, 38.5, -49.5, 0.5, -4.75, -49.5, 0.5, 4.75, -47.5, 0.5, 14.75, 24.5, 0.5, 43.25, 31.5, 0.5, 38.5, 38.5, 0.5, 31.5, 43.25, 0.5, -24.5, 38.5, 0.5, -31.5, 31.5, 0.5, -38.5, -24.5, 0.5, -43.25, -31.5, 0.5, -38.5, -38.5, 0.5, -31.5, -24.5, 0.5, 43.25, -14.75, 0.5, 47.5, -4.75, 0.5, 49.5, 4.75, 0.5, 49.5, 43.25, 0.5, 24.5, 47.5, 0.5, 14.75, 14.75, 0.5, 47.5, 24.5, 0.5, -43.25, 14.75, 0.5, -47.5, 4.75, 0.5, -49.5, -4.75, 0.5, -49.5, -43.25, 0.5, -24.5, -47.5, 0.5, -14.75, -14.75, 0.5, -47.5, 49.5, 0.5, 4.75, 49.5, 0.5, -4.75, 47.5, 0.5, -14.75)
@@ -137,3 +139,7 @@ enemy_scene = ExtResource("7_gah88")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8325, 0.34344, 3.36927)
 item_id = "main-scene-flare"
 item_scene = ExtResource("9_rdy4n")
+
+[node name="HutExterior" parent="." instance=ExtResource("15_yr8eq")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 31.1564, 3.05176e-05, 18.0902)
+load_scene = ExtResource("16_yyboj")
