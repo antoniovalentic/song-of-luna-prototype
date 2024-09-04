@@ -7,6 +7,8 @@ func _ready():
     Global.set_current_scene(self)
     Global.set_pause_game(true)
     Global.reset_states()
+    if Global.get_player_reference():
+        Global.get_player_reference()._on_item_unequip(null)
     Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
     pause_menu.resume_pressed.connect(_on_resume_button_pressed)
     pause_menu.quit_pressed.connect(_on_quit_button_pressed)
@@ -19,4 +21,3 @@ func _on_resume_button_pressed():
 
 func _on_quit_button_pressed():
     get_tree().quit() 
-

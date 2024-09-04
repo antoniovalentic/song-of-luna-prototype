@@ -38,6 +38,6 @@ func _area_exited_area(area: Area3D):
 
 func collect_item():
     if player_in_range:
-        player.pick_up(item, amount)
-        SignalBus.item_picked.emit(item_id)
-        self.queue_free()
+        if player.pick_up(item, amount):
+            SignalBus.item_picked.emit(item_id)
+            self.queue_free()

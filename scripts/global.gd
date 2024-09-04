@@ -1,8 +1,8 @@
 extends Node
 
 # Level scenes
-@onready var main_menu_scene: PackedScene = preload("res://main_menu.tscn")
-@onready var main_scene: PackedScene = preload("res://main-scene.tscn")
+@onready var main_menu_scene: PackedScene = load("res://main_menu.tscn")
+@onready var main_scene: PackedScene = load("res://main-scene.tscn")
 
 @onready var viewport: Viewport = get_viewport()
 
@@ -12,6 +12,7 @@ var current_scene: Node3D = null
 var dead_enemies: Array[String] = []
 var picked_up_items: Array[String] = []
 var is_game_end: bool = false
+var entered_hut: bool = false
 
 var has_red_orb: bool = false
 var has_green_orb: bool = false
@@ -29,6 +30,15 @@ func _ready():
 func reset_states():
 	reset_dead_enemies()
 	reset_picked_items()
+	player_instance = null
+	current_scene = null
+	dead_enemies = []
+	picked_up_items = []
+	is_game_end = false
+	entered_hut = false
+	has_red_orb = false
+	has_green_orb = false
+	has_blue_orb = false
 
 func set_player_reference(player: Player):
 	player_instance = player
@@ -56,9 +66,19 @@ func set_pause_game(value: bool):
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func load_scene(caller: Node, scene: PackedScene):
+	# Queue free all spawners first
+	"""var spawners := get_tree().get_nodes_in_group("Spawners")
+	for node in spawners:
+		node.queue_free()"""
+	
+	# Load new scene instance
 	var scene_instance: Node3D = scene.instantiate()
+	scene_instance.request_ready()
 	get_tree().root.add_child(scene_instance)
 	caller.queue_free()
+
+	# Proper window sizing
+	get_tree().root.size_changed.emit()
 
 
 func check_enemy_id(id: String) -> bool:

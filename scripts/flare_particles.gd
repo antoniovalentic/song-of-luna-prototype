@@ -2,8 +2,9 @@ extends CPUParticles3D
 
 
 func _ready():
-    SignalBus.equiped_item.connect(_on_equiped_item)
-    SignalBus.unequiped_item.connect(_on_unequiped_item)
+    #SignalBus.equiped_item.connect(_on_equiped_item)
+    #SignalBus.unequiped_item.connect(_on_unequiped_item)
+    pass
 
 
 func _on_equiped_item(slot: InvSlot):

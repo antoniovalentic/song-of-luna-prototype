@@ -16,9 +16,9 @@ var interacatable: bool = false
 var player: Player = null
 
 func _ready():
-    ball_red.visible = false
-    ball_green.visible = false
-    ball_blue.visible = false
+    ball_red.visible = Global.has_red_orb
+    ball_green.visible = Global.has_green_orb
+    ball_blue.visible = Global.has_blue_orb
     player = Global.get_player_reference()
 
 func _input(event: InputEvent):
@@ -26,12 +26,15 @@ func _input(event: InputEvent):
         if player.INVENTORY.check_item(red_orb_item):
             ball_red.visible = true
             SignalBus.remove_item.emit(red_orb_item)
+            Global.has_red_orb = true
         if player.INVENTORY.check_item(green_orb_item):
             ball_green.visible = true
             SignalBus.remove_item.emit(green_orb_item)
+            Global.has_green_orb = true
         if player.INVENTORY.check_item(blue_orb_item):
             ball_blue.visible = true
             SignalBus.remove_item.emit(blue_orb_item)
+            Global.has_blue_orb = true
     
     if ball_red.visible and ball_green.visible and ball_blue.visible:
         SignalBus.game_end.emit()

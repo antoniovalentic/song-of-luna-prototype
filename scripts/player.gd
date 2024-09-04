@@ -53,8 +53,13 @@ func _ready():
 	SignalBus.reload_done.connect(_on_reload_done)
 	SignalBus.item_consumed.connect(_on_item_consumed)
 	SignalBus.player_death.connect(_on_player_death)
+	SignalBus.game_end.connect(_on_game_end)
 
 	current_stamina = MAX_STAMINA
+
+	# If already has equiped item/weapon
+	if INVENTORY.equiped_item != null and INVENTORY.equiped_item.item.scene_path != null and INVENTORY.equiped_item.item.scene_path != '':
+		_on_item_equip(INVENTORY.equiped_item)
 
 
 func _input(event: InputEvent):
@@ -105,7 +110,7 @@ func _physics_process(delta: float):
 		velocity.y = JUMP_FORCE"""
 	
 	var input_dir: Vector2 = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
-	var direction: Vector3 = (pivot.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	var direction: Vector3 = (camera.get_camera_transform().basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
 	if is_recovering_stamina and current_stamina == 100.0:
 		is_recovering_stamina = false
@@ -126,8 +131,13 @@ func _physics_process(delta: float):
 	move_and_slide()
 
 # Inventory functions
-func pick_up(item: InvItem, amount: int):
-	INVENTORY.insert(item, amount)
+func pick_up(item: InvItem, amount: int) -> bool:
+	# Check if free space in inventory
+	if INVENTORY.check_free_space(item):
+		INVENTORY.insert(item, amount)
+		return true
+	else:
+		return false
 
 func _on_item_equip(slot: InvSlot):
 	if slot.item.item_type == InvItem.ItemType.WEAPON and slot.item.scene_path != null:
@@ -252,3 +262,8 @@ func _on_player_death():
 	
 	var tween: Tween = get_tree().create_tween().bind_node(self).set_loops(1)
 	tween.tween_callback(callback).set_delay(3)
+
+
+func _on_game_end():
+	_on_item_unequip(null)
+	INVENTORY.unequip(INVENTORY.equiped_item.item)

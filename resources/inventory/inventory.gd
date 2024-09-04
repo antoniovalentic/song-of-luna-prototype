@@ -50,6 +50,19 @@ func remove(item: InvItem, amount: int):
     
     SignalBus.slots_updated.emit()
 
+func check_free_space(item: InvItem) -> bool:
+    # Array of slots that contain the item
+    var item_slots: Array[InvSlot] = slots.filter(func(slot): return slot.item == item)
+    if !item_slots.is_empty():
+        return true
+    else:
+        # Get first empty slot
+        var empty_slots: Array[InvSlot] = slots.filter(func(slot): return slot.item == null)
+        if !empty_slots.is_empty():
+            return true
+        else:
+            return false
+
 func check_item(item: InvItem) -> bool:
     if item == null:
         return false

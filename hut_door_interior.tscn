@@ -1,11 +1,11 @@
-[gd_scene load_steps=9 format=4 uid="uid://wpyleust17qq"]
+[gd_scene load_steps=9 format=4 uid="uid://cfsev1vlxjqho"]
 
-[ext_resource type="PackedScene" uid="uid://bvn8pr4goe85w" path="res://models/hut.glb" id="1_eanwq"]
-[ext_resource type="Script" path="res://scripts/hut_exterior.gd" id="2_yhqnk"]
+[ext_resource type="PackedScene" uid="uid://bvn8pr4goe85w" path="res://models/hut.glb" id="1_5eshu"]
+[ext_resource type="Script" path="res://scripts/hut_door_interior.gd" id="2_5dcmh"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ssafs"]
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_wosso"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_8ejhn"]
 _surfaces = [{
 "aabb": AABB(-1.96593, -0.125, -1.96593, 3.93185, 0.25, 3.93185),
 "format": 34359742465,
@@ -18,7 +18,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_22r1s"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_bj2qg"]
 resource_name = "hut_Cylinder"
 _surfaces = [{
 "aabb": AABB(-1.96593, -0.125, -1.96593, 3.93185, 0.25, 3.93185),
@@ -33,38 +33,40 @@ _surfaces = [{
 "vertex_data": PackedByteArray("AAAAAAAAAL4AAIC/AAAAAAAAAL4AAIC/AAAAAAAAAL4AAIC/AAAAAAAAAD4AAIC/AAAAAAAAAD4AAIC/AAAAAAAAAD4AAIC/AAAAPwAAAL7Xs12/AAAAPwAAAL7Xs12/AAAAPwAAAL7Xs12/AAAAPwAAAD7Xs12/AAAAPwAAAD7Xs12/AAAAPwAAAD7Xs12/17NdPwAAAL4AAAC/17NdPwAAAL4AAAC/17NdPwAAAL4AAAC/17NdPwAAAD4AAAC/17NdPwAAAD4AAAC/17NdPwAAAD4AAAC/AACAPwAAAL4AAACAAACAPwAAAL4AAACAAACAPwAAAL4AAACAAACAPwAAAD4AAACAAACAPwAAAD4AAACAAACAPwAAAD4AAACA17NdPwAAAL4AAAA/17NdPwAAAL4AAAA/17NdPwAAAL4AAAA/17NdPwAAAD4AAAA/17NdPwAAAD4AAAA/17NdPwAAAD4AAAA/AAAAPwAAAL7Xs10/AAAAPwAAAL7Xs10/AAAAPwAAAL7Xs10/AAAAPwAAAD7Xs10/AAAAPwAAAD7Xs10/AAAAPwAAAD7Xs10/AAAAAAAAAL4AAIA/AAAAAAAAAL4AAIA/AAAAAAAAAL4AAIA/AAAAAAAAAD4AAIA/AAAAAAAAAD4AAIA/AAAAAAAAAD4AAIA/AAAAvwAAAL7Xs10/AAAAvwAAAL7Xs10/AAAAvwAAAL7Xs10/AAAAvwAAAD7Xs10/AAAAvwAAAD7Xs10/AAAAvwAAAD7Xs10/17NdvwAAAL4AAAA/17NdvwAAAL4AAAA/17NdvwAAAL4AAAA/17NdvwAAAD4AAAA/17NdvwAAAD4AAAA/17NdvwAAAD4AAAA/AACAvwAAAL4AAACAAACAvwAAAL4AAACAAACAvwAAAL4AAACAAACAvwAAAD4AAACAAACAvwAAAD4AAACAAACAvwAAAD4AAACA17NdvwAAAL4AAAC/17NdvwAAAL4AAAC/17NdvwAAAL4AAAC/17NdvwAAAD4AAAC/17NdvwAAAD4AAAC/17NdvwAAAD4AAAC/AAAAvwAAAL7Xs12/AAAAvwAAAL7Xs12/AAAAvwAAAL7Xs12/AAAAvwAAAD7Xs12/AAAAvwAAAD7Xs12/AAAAvwAAAD7Xs12/eoKaPwAAAL5mXMm/eoKaPwAAAL5mXMm/eoKaPwAAAL5mXMm/eoKaPwAAAD5mXMm/eoKaPwAAAD5mXMm/eoKaPwAAAD5mXMm/ZlzJPwAAAL56gpq/ZlzJPwAAAL56gpq/ZlzJPwAAAL56gpq/ZlzJPwAAAD56gpq/ZlzJPwAAAD56gpq/ZlzJPwAAAD56gpq/74OEvgAAAL51o/u/74OEvgAAAL51o/u/74OEvgAAAL51o/u/74OEvgAAAD51o/u/74OEvgAAAD51o/u/74OEvgAAAD51o/u/+EFCvwAAAL5gfeq/+EFCvwAAAL5gfeq/+EFCvwAAAL5gfeq/+EFCvwAAAD5gfeq/+EFCvwAAAD5gfeq/+EFCvwAAAD5gfeq/daP7vwAAAL7vg4S+daP7vwAAAL7vg4S+daP7vwAAAL7vg4S+daP7vwAAAD7vg4S+daP7vwAAAD7vg4S+daP7vwAAAD7vg4S+YH3qvwAAAL74QUK/YH3qvwAAAL74QUK/YH3qvwAAAL74QUK/YH3qvwAAAD74QUK/YH3qvwAAAD74QUK/YH3qvwAAAD74QUK/eoKavwAAAL5mXMk/eoKavwAAAL5mXMk/eoKavwAAAL5mXMk/eoKavwAAAD5mXMk/eoKavwAAAD5mXMk/eoKavwAAAD5mXMk/ZlzJvwAAAL56gpo/ZlzJvwAAAL56gpo/ZlzJvwAAAL56gpo/ZlzJvwAAAD56gpo/ZlzJvwAAAD56gpo/ZlzJvwAAAD56gpo/+EFCPwAAAL5gfeo/+EFCPwAAAL5gfeo/+EFCPwAAAL5gfeo/+EFCPwAAAD5gfeo/+EFCPwAAAD5gfeo/+EFCPwAAAD5gfeo/74OEPgAAAL51o/s/74OEPgAAAL51o/s/74OEPgAAAL51o/s/74OEPgAAAD51o/s/74OEPgAAAD51o/s/74OEPgAAAD51o/s/daP7PwAAAL7vg4Q+daP7PwAAAL7vg4Q+daP7PwAAAL7vg4Q+daP7PwAAAD7vg4Q+daP7PwAAAD7vg4Q+daP7PwAAAD7vg4Q+YH3qPwAAAL74QUI/YH3qPwAAAL74QUI/YH3qPwAAAL74QUI/YH3qPwAAAD74QUI/YH3qPwAAAD74QUI/YH3qPwAAAD74QUI//38AAP///z////LkAACFzf//C5v///+//3///////7////LkAACFzf//C5v///+//38AAP///z////LkAACFzQAA/7////+//3///////7////LkAACFzQAA/7////+//38AAP///z//v/9/////P///C5sAAHjy/3///////7//v/9/////P///C5sAAHjy/38AAP///z////Lk////v///C5sAAHjy/3///////7////Lk////v///C5sAAHjy/38AAP///z//v/9/////3/Nk/3////8//3///////7//v/9/////3/Nk/3////8//38AAP///z//v/9/////3///C5v///+//3///////7//v/9/////3///C5v///+//38AAP///z/zZP9/8uT/vwwb/3////8//3///////7/zZP9/8uT/vwwb/3////8//38AAP///z//v/9/////P/Nk/3/y5P+//3///////7//v/9/////P/Nk/3/y5P+//38AAP///z8AAP+/////vwwb/38Lm/+//3///////78AAP+/////vwwb/38Lm/+//38AAP///z/zZP9/////Pwwb/38Lm/+//3///////7/zZP9/////Pwwb/38Lm/+//38AAP///z////Lk////vwAA/7//P/+//3///////7////Lk////vwAA/7//P/+//38AAP///z8AAP+//z//vwwb/3////8//3///////78AAP+//z//vwwb/3////8//38AAP///7////+/AAD/3wAA/7////+//3///////7////+/AAD/3wAA/7////+//38AAP///7//v/9/////P////78AAP/f/3///////7//v/9/////P////78AAP/f/38AAP///7///wub////vwAA8uQMG/+//3///////7///wub////vwAA8uQMG/+//38AAP///78AAPLkDBv/vwwb/3////8//3///////78AAPLkDBv/vwwb/3////8//38AAP///7/zZP9/////PwAAC5vzZP+//3///////7/zZP9/////PwAAC5vzZP+//38AAP///7////Lk////vwAAC5vzZP+//3///////7////Lk////vwAAC5vzZP+//38AAP///7//v/9/////P/8//3//v/+//3///////7//v/9/////P/8//3//v/+//38AAP///7//P/9//7//vwAA/7////+//3///////7//P/9//7//vwAA/7////+//38AAP///78Lm/9///+Fzf//C5v///+//3///////78Lm/9///+Fzf//C5v///+//38AAP///78Lm/9///+FzQwb/3////8//3///////78Lm/9///+FzQwb/3////8//38AAP///7////Lk////v/Lk/3///3jy/3///////7////Lk////v/Lk/3///3jy/38AAP///7/y5P9///948vNk/3////8//3///////7/y5P9///948vNk/3////8/")
 }]
 blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_wosso")
+shadow_mesh = SubResource("ArrayMesh_8ejhn")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cnli8"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wwhlu"]
 cull_mode = 1
 shading_mode = 0
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_i0tl8"]
-radius = 5.5
+[sub_resource type="BoxShape3D" id="BoxShape3D_ut4cd"]
+size = Vector3(8.61163, 2.75523, 8.7157)
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_uedav"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_tghnv"]
 radius = 0.75
 
-[node name="HutExterior" instance=ExtResource("1_eanwq")]
-script = ExtResource("2_yhqnk")
+[node name="HutDoorInterior" instance=ExtResource("1_5eshu")]
+script = ExtResource("2_5dcmh")
 
 [node name="CylinderOutline" type="MeshInstance3D" parent="." index="2"]
 transform = Transform3D(0.0148165, 0.169353, 0, -0.169353, 0.0148165, 0, 0, 0, 0.17, 5.10706, 0.835817, 0)
 cast_shadow = 0
-mesh = SubResource("ArrayMesh_22r1s")
+mesh = SubResource("ArrayMesh_bj2qg")
 skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_cnli8")
+surface_material_override/0 = SubResource("StandardMaterial3D_wwhlu")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." index="3"]
+transform = Transform3D(0.0148165, 0.169353, 0, -0.169353, 0.0148165, 0, 0, 0, 0.17, 5.10706, 0.835817, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
-shape = SubResource("SphereShape3D_i0tl8")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.401031, 0.877613, 0.0525511)
+shape = SubResource("BoxShape3D_ut4cd")
 
 [node name="DoorInteractArea" type="Area3D" parent="." index="4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.03657, 0.828785, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DoorInteractArea" index="0"]
-shape = SubResource("SphereShape3D_uedav")
+shape = SubResource("SphereShape3D_tghnv")
 
 [connection signal="area_entered" from="DoorInteractArea" to="." method="_area_entered_area"]
 [connection signal="area_exited" from="DoorInteractArea" to="." method="_area_exited_area"]

@@ -64,6 +64,8 @@ light_color = Color(1, 0.368627, 0, 1)
 light_energy = 5.0
 omni_range = 50.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
 transform = Transform3D(-0.427042, 5.98475, -0.0211292, -5.95186, -0.426909, -0.627023, -0.626933, -0.0236679, 5.96711, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_6ntou")

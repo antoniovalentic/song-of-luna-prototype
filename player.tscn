@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cwpo78f50wouh"]
+[gd_scene load_steps=18 format=3 uid="uid://cwpo78f50wouh"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_p4h0a"]
 [ext_resource type="Resource" uid="uid://w120kkbvtwtk" path="res://resources/inventory/player_inventory.tres" id="2_20gtg"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/camera_viewport.gd" id="3_ooycf"]
 [ext_resource type="Script" path="res://scripts/player_hit_box.gd" id="3_xir3q"]
 [ext_resource type="Shader" path="res://shaders/reduce_color.gdshader" id="4_uvjkv"]
+[ext_resource type="Script" path="res://scripts/viewport_resize.gd" id="5_7fgey"]
 [ext_resource type="PackedScene" uid="uid://b6wk1k8gw3hht" path="res://menu_gui.tscn" id="6_d8hla"]
 [ext_resource type="PackedScene" uid="uid://c8g2on3cpu6ge" path="res://hud.tscn" id="6_hr3w2"]
 
@@ -41,8 +42,6 @@ shader_parameter/chromatic_aberration = 0.25
 shader_parameter/scan_lines = 0.35
 
 [node name="Player" type="CharacterBody3D"]
-wall_min_slide_angle = 0.0
-floor_stop_on_slope = false
 script = ExtResource("1_p4h0a")
 STAMINA_DECAY = 1.0
 INVENTORY = ExtResource("2_20gtg")
@@ -130,6 +129,7 @@ grow_vertical = 2
 handle_input_locally = false
 size = Vector2i(1920, 1080)
 render_target_update_mode = 4
+script = ExtResource("5_7fgey")
 
 [node name="CameraViewport" type="SubViewportContainer" parent="PostProcessViewport/SubViewport" node_paths=PackedStringArray("view_camera")]
 texture_filter = 1
@@ -149,6 +149,7 @@ handle_input_locally = false
 positional_shadow_atlas_size = 512
 size = Vector2i(480, 270)
 render_target_update_mode = 4
+script = ExtResource("5_7fgey")
 
 [node name="Camera" type="Camera3D" parent="PostProcessViewport/SubViewport/CameraViewport/SubViewport"]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 1.8, 0)
@@ -166,6 +167,7 @@ transparent_bg = true
 handle_input_locally = false
 size = Vector2i(1920, 1080)
 render_target_update_mode = 4
+script = ExtResource("5_7fgey")
 
 [node name="HUD" parent="GuiViewportContainer/SubViewport" instance=ExtResource("6_hr3w2")]
 mouse_filter = 2

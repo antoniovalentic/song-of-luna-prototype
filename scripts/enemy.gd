@@ -36,6 +36,7 @@ var player_in_hit_range: bool = false
 var is_hit_recovering: bool = false
 var is_agro: bool = false
 var enemy_id: String = ''
+var is_game_end: bool = false
 
 func _ready():
     self.is_fake_dead = false
@@ -43,6 +44,7 @@ func _ready():
     self.speed = MAX_SPEED
     hurt_box.damage_recieved.connect(_on_damage_recieved)
     hurt_box.flare_recieved.connect(_on_flare_recieved)
+    SignalBus.game_end.connect(_on_game_end)
 
     # These values need to be adjusted for the actor's speed
     # and the navigation layout.
@@ -63,6 +65,9 @@ func _physics_process(delta: float):
     # Gravity
     if not is_on_floor():
         velocity.y -= gravity * delta
+    
+    if is_game_end:
+        return
     
     if not player_detected and not is_agro:
         return
@@ -173,3 +178,7 @@ func _on_hit_box_body_entered(body: Node3D):
 func _on_hit_box_body_exited(body: Node3D):
     if body is Player:
         player_in_hit_range = false
+
+
+func _on_game_end():
+    is_game_end = true

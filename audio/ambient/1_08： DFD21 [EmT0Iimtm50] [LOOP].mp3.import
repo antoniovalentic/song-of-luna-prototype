@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bj5mnpmhkn67v"
+path="res://.godot/imported/1_08： DFD21 [EmT0Iimtm50] [LOOP].mp3-880a421f3223ac10bd79feba5d0fefeb.mp3str"
+
+[deps]
+
+source_file="res://audio/ambient/1_08： DFD21 [EmT0Iimtm50] [LOOP].mp3"
+dest_files=["res://.godot/imported/1_08： DFD21 [EmT0Iimtm50] [LOOP].mp3-880a421f3223ac10bd79feba5d0fefeb.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4
