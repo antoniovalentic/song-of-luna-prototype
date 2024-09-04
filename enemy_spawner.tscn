@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" path="res://scripts/enemy_spawner.gd" id="1_i0454"]
 
-[node name="EnemySpawner" type="Node3D"]
+[node name="EnemySpawner" type="Node3D" groups=["Enemy_Spawners"]]
 script = ExtResource("1_i0454")

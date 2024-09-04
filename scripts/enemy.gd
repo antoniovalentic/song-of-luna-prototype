@@ -34,6 +34,7 @@ var speed: float = 0.0
 var player_detected: bool = false
 var player_in_hit_range: bool = false
 var is_hit_recovering: bool = false
+var is_agro: bool = false
 var enemy_id: String = ''
 
 func _ready():
@@ -66,7 +67,10 @@ func _physics_process(delta: float):
     if not is_on_floor():
         velocity.y -= gravity * delta
     
-    if navigation_agent.is_navigation_finished() or not player_detected:
+    if not player_detected and not is_agro:
+        return
+    
+    if navigation_agent.is_navigation_finished():
         return
     
     if not is_fake_dead and player != null:
@@ -106,6 +110,7 @@ func fake_death():
             start_real_death_timer()
 
 func damage_enemy(damage: float):
+    is_agro = true
     HEALTH -= damage
     if HEALTH <= 0:
         HEALTH = 0

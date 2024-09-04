@@ -1,6 +1,6 @@
 extends Node3D
 
-@onready var eye: Node3D = $Eye
+@onready var eye: Node3D = $MapLayout/Eye
 @onready var pause_menu: PauseMenu = $PauseMenu
 
 func _ready():
@@ -20,15 +20,19 @@ func _ready():
     for i in range(enemy_spawners.size()):
         var spawner: EnemySpawner = enemy_spawners[i]
         var enemy_scene: Enemy = spawner.spawn_enemy()
-        add_child(enemy_scene)
-    
+        if enemy_scene != null:
+            add_child(enemy_scene)
+            enemy_scene.global_position = spawner.global_position
+
     # Spawn items
     if item_spawners.size() < 1:
         return
     for i in range(item_spawners.size()):
         var spawner: ItemSpawner = item_spawners[i]
         var item_scene: ItemScene = spawner.spawn_item()
-        add_child(item_scene)
+        if item_scene != null:
+            add_child(item_scene)
+            item_scene.global_position = spawner.global_position
 
 func _on_resume_button_pressed():
     Global.set_pause_game(false)

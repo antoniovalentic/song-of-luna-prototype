@@ -10,7 +10,7 @@ signal enemy_spawned(spawner: EnemySpawner, enemyScene: Node3D)
 func spawn_enemy():
     if enemy_id and enemy_scene and Global.check_enemy_id(enemy_id):
         var enemy_instance: Node3D = enemy_scene.instantiate()
-        enemy_instance.global_position = self.global_position
+        #enemy_instance.global_position = self.global_position
         enemy_instance.enemy_id = enemy_id
         enemy_spawned.emit(self, enemy_instance)
         return enemy_instance

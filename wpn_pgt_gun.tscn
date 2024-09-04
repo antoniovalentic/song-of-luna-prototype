@@ -74,7 +74,7 @@ script = ExtResource("2_hx14e")
 item = ExtResource("3_32duf")
 
 [node name="Cylinder" parent="." index="0"]
-transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 3, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 3, 0)
 surface_material_override/0 = SubResource("StandardMaterial3D_b38lv")
 
 [node name="MeshOutline" type="MeshInstance3D" parent="." index="1"]
