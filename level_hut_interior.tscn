@@ -1,16 +1,10 @@
-[gd_scene load_steps=65 format=3 uid="uid://chwwd2lb4w5bi"]
+[gd_scene load_steps=62 format=3 uid="uid://chwwd2lb4w5bi"]
 
 [ext_resource type="Script" path="res://scripts/level_hut_interior.gd" id="1_hndq6"]
 [ext_resource type="Texture2D" uid="uid://d344xbwjgtse8" path="res://sprites/hut-floor-tile.png" id="1_qq8da"]
 [ext_resource type="Texture2D" uid="uid://cl0cyj2vxngqx" path="res://sprites/hut-wall-tile.png" id="1_tok3w"]
 [ext_resource type="PackedScene" uid="uid://cwpo78f50wouh" path="res://player.tscn" id="1_w00ie"]
 [ext_resource type="PackedScene" uid="uid://draq8rm82hgog" path="res://pause_menu.tscn" id="2_ypc77"]
-[ext_resource type="PackedScene" uid="uid://wpyleust17qq" path="res://hut_exterior.tscn" id="6_aat0p"]
-[ext_resource type="PackedScene" uid="uid://c4skaw306j3u5" path="res://main-scene.tscn" id="7_ar1d6"]
-
-[sub_resource type="Environment" id="Environment_ppvfp"]
-background_energy_multiplier = 0.0
-ambient_light_energy = 0.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6v124"]
 albedo_texture = ExtResource("1_qq8da")
@@ -192,9 +186,6 @@ size = Vector2(68, 68)
 
 [node name="LevelHutInterior" type="Node3D"]
 script = ExtResource("1_hndq6")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_ppvfp")
 
 [node name="PauseMenu" parent="." instance=ExtResource("2_ypc77")]
 
@@ -750,7 +741,3 @@ mesh = SubResource("PlaneMesh_i3iym")
 
 [node name="Player" parent="." instance=ExtResource("1_w00ie")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0144659, -2.38419e-07, -0.0139668)
-
-[node name="HutExterior" parent="." instance=ExtResource("6_aat0p")]
-transform = Transform3D(-8.74228e-08, 0, -2, 0, 2, 0, 2, 0, -8.74228e-08, 0, 0, -12)
-load_scene = ExtResource("7_ar1d6")
