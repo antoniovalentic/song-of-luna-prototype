@@ -57,10 +57,7 @@ func actor_setup():
     await get_tree().physics_frame
 
     # Now that the navigation map is no longer empty, set the movement target.
-    set_movement_target(player.global_position)
-
-func set_movement_target(movement_target: Vector3):
-    navigation_agent.set_target_position(movement_target)
+    navigation_agent.set_target_position(player.global_position)
 
 func _physics_process(delta: float):
     # Gravity
@@ -76,7 +73,7 @@ func _physics_process(delta: float):
     if not is_fake_dead and player != null:
         """var velocity_dir: Vector3 = global_position.direction_to(player.global_position)
         move_and_collide(velocity_dir * speed * delta)"""
-        set_movement_target(player.global_position)
+        navigation_agent.set_target_position(player.global_position)
         look_at(player.global_position)
         rotate_y(deg_to_rad(90))
         var current_agent_position: Vector3 = global_position
