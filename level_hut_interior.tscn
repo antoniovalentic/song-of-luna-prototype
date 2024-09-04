@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://chwwd2lb4w5bi"]
+[gd_scene load_steps=63 format=3 uid="uid://chwwd2lb4w5bi"]
 
 [ext_resource type="Script" path="res://scripts/level_hut_interior.gd" id="1_hndq6"]
 [ext_resource type="Texture2D" uid="uid://d344xbwjgtse8" path="res://sprites/hut-floor-tile.png" id="1_qq8da"]
@@ -183,6 +183,10 @@ texture_filter = 0
 [sub_resource type="PlaneMesh" id="PlaneMesh_i3iym"]
 material = SubResource("StandardMaterial3D_u862k")
 size = Vector2(68, 68)
+
+[sub_resource type="Environment" id="Environment_tgqqv"]
+background_energy_multiplier = 0.0
+ambient_light_energy = 0.0
 
 [node name="LevelHutInterior" type="Node3D"]
 script = ExtResource("1_hndq6")
@@ -741,3 +745,6 @@ mesh = SubResource("PlaneMesh_i3iym")
 
 [node name="Player" parent="." instance=ExtResource("1_w00ie")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0144659, -2.38419e-07, -0.0139668)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_tgqqv")
