@@ -1,11 +1,13 @@
-[gd_scene load_steps=31 format=3 uid="uid://c4skaw306j3u5"]
+[gd_scene load_steps=33 format=3 uid="uid://c4skaw306j3u5"]
 
 [ext_resource type="Script" path="res://scripts/level_moon_surface.gd" id="1_1kkfo"]
 [ext_resource type="PackedScene" uid="uid://bnyenue78c6u2" path="res://world_environment.tscn" id="1_bbcfy"]
 [ext_resource type="Texture2D" uid="uid://5yilpmr5knkg" path="res://models/textures/moon_diffuse.png" id="1_dhvcg"]
 [ext_resource type="PackedScene" uid="uid://bmij4p4w6dm17" path="res://models/moon_inverse_cylinder.glb" id="2_0yagk"]
+[ext_resource type="AudioStream" uid="uid://c4t41gmxwwm8s" path="res://music/HorrorMytery.mp3" id="2_4o0vm"]
 [ext_resource type="PackedScene" uid="uid://draq8rm82hgog" path="res://pause_menu.tscn" id="2_j7fpa"]
 [ext_resource type="PackedScene" uid="uid://cwpo78f50wouh" path="res://player.tscn" id="2_m1uo0"]
+[ext_resource type="AudioStream" uid="uid://b3587tu5ek0xn" path="res://music/Shattered-Mind_LoFi.mp3" id="3_368hf"]
 [ext_resource type="PackedScene" uid="uid://cd4bjhn0qultm" path="res://small_health.tscn" id="4_eh8b4"]
 [ext_resource type="PackedScene" uid="uid://crp46hafgqcwo" path="res://models/pyramid.glb" id="5_o1km6"]
 [ext_resource type="PackedScene" uid="uid://d4nldq1x7vpsk" path="res://enemy.tscn" id="7_gah88"]
@@ -61,6 +63,17 @@ cap_bottom = false
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_1kkfo")
+
+[node name="StartAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_4o0vm")
+volume_db = -50.0
+autoplay = true
+parameters/looping = true
+
+[node name="EndAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_368hf")
+volume_db = -20.0
+autoplay = true
 
 [node name="PauseMenu" parent="." instance=ExtResource("2_j7fpa")]
 

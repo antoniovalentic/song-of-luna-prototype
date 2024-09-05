@@ -25,6 +25,6 @@ environment = SubResource("Environment_iif2h")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.977574, 3.45309e-09, -0.210591, 0.210591, -4.23904e-08, 0.977574, -5.55139e-09, -1, -4.2167e-08, -400, 238, 0)
-light_energy = 0.012
+light_energy = 0.03
 directional_shadow_mode = 0
 sky_mode = 1

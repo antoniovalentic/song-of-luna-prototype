@@ -26,4 +26,4 @@ transform = Transform3D(-3.98763e-08, 0.409605, -0.912263, 1.79044e-08, 0.912263
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_wyxo3")
-volume_db = -20.0
+volume_db = -30.0

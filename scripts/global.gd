@@ -114,4 +114,4 @@ func _on_game_end():
 		Global.load_scene(current_scene, main_menu_scene)
 	
 	var tween: Tween = get_tree().create_tween().bind_node(self).set_loops(1)
-	tween.tween_callback(callback).set_delay(5)
+	tween.tween_callback(callback).set_delay(10)

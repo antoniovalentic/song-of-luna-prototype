@@ -3,12 +3,17 @@ extends Node3D
 @onready var eye: Node3D = $MapLayout/Eye
 @onready var pause_menu: PauseMenu = $PauseMenu
 
+@onready var start_audio_player: AudioStreamPlayer = $StartAudioStreamPlayer
+@onready var end_audio_player: AudioStreamPlayer = $EndAudioStreamPlayer
+
 @onready var player_spawn_start: Node3D = $PlayerSpawnStart
 @onready var player_spawn: Node3D = $HutExterior/PlayerSpawn
 
 func _ready():
     Global.set_current_scene(self)
     eye.visible = false
+
+    end_audio_player.stream_paused = true
 
     SignalBus.game_end.connect(_on_game_end)
     pause_menu.resume_pressed.connect(_on_resume_button_pressed)
@@ -48,4 +53,7 @@ func _on_quit_button_pressed():
     Global.load_scene(self, Global.main_menu_scene)
 
 func _on_game_end():
+    start_audio_player.autoplay = false
+    start_audio_player.stop()
+    end_audio_player.stream_paused = false
     eye.visible = true
